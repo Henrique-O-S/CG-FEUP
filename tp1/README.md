@@ -1,12 +1,10 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T06G02
 
 ## TP 1 Notes
 
-(add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
-
-- In exercise 1, we had some difficulties at the begining, regarding the interaction with the labels in the interface and the actual variables that controlled the display of specific items
+- In exercise 1, we had some difficulties at the beginning, regarding the interaction with the labels in the interface and the actual variables that controlled the display of specific items.
 - We had no problems in exercise 2, since we just copied the logic of what we have done before.
 
-![Screenshot 1](screenshots/cg-t02g06-tp1-1.png)
+![Screenshot 1](screenshots/cg-t06g02-tp1-1.png)
