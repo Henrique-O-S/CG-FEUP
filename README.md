@@ -3,8 +3,8 @@
 ## Group T0xG0y
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Henrique Silva   | 202007242 | up202007242@edu.fe.up.pt       |
+| Tiago Branquinho   | 202005567 | up202005567@edu.fe.up.pt            |
 
 ----
 
