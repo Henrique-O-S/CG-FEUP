@@ -1,6 +1,6 @@
 # CG 2022/2023
 
-## Group T0xG0y
+## Group T06G02
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
 | Henrique Silva   | 202007242 | up202007242@edu.fe.up.pt       |
