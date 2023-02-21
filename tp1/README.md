@@ -6,7 +6,7 @@
 
 (add your main observations/remarks about your experiments here, in a bulleted list, and remove this line. Some examples below)
 
-- In exercise 1 we observed X
-- In exercise 2 we had difficulties in Y
+- In exercise 1, we had some difficulties at the begining, regarding the interaction with the labels in the interface and the actual variables that controlled the display of specific items
+- We had no problems in exercise 2, since we just copied the logic of what we have done before.
 
-![Screenshot 1](screenshots/cg-t0xgxx-tp1-n.png)
+![Screenshot 1](screenshots/cg-t02g06-tp1-1.png)
