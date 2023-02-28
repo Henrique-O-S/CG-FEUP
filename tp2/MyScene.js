@@ -5,6 +5,7 @@ import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
 import { MyTangram } from "./MyTangram.js";
+import { MyUnitCube } from "./MyUnitCube.js";
 
 
 
@@ -38,6 +39,7 @@ export class MyScene extends CGFscene {
     this.triangleSmall = new MyTriangleSmall(this);
     this.triangleBig = new MyTriangleBig(this);
     this.tangram = new MyTangram(this, this.diamond, this.parallelogram, this.triangleSmall, this.triangleBig);
+    this.myUnitCube = new MyUnitCube(this);
 
 
 
@@ -50,6 +52,7 @@ export class MyScene extends CGFscene {
     this.displayTriangleSmall = true;
     this.displayTriangleBig = true;
     this.displayTangram = true;
+    this.displayMyUnitCube = true;
     this.scaleFactor = 1;
   }
   initLights() {
@@ -114,6 +117,23 @@ export class MyScene extends CGFscene {
 
     // ---- BEGIN Primitive drawing section
 
+    this.pushMatrix();
+
+    this.translate(0.5,0,0.5);
+
+    this.rotate(-Math.PI/2,1,0,0);
+
+    if(this.displayTangram) this.tangram.display();
+
+    this.popMatrix();
+    this.pushMatrix();
+
+    this.translate(0,0,-0.5);
+
+    if(this.displayMyUnitCube) this.myUnitCube.display();
+
+
+    /*
     if(this.displayDiamond) this.diamond.display();
 
     if(this.displayTriangle) this.triangle.display();
@@ -125,7 +145,7 @@ export class MyScene extends CGFscene {
     if(this.displayTriangleBig) this.triangleBig.display();
 
     if(this.displayTangram) this.tangram.display();
-
+    */
 
 
     // ---- END Primitive drawing section
