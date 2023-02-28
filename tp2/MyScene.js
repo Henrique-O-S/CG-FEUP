@@ -4,6 +4,8 @@ import { MyParallelogram } from "./MyParallelogram.js";
 import { MyTriangle } from "./MyTriangle.js";
 import { MyTriangleSmall } from "./MyTriangleSmall.js";
 import { MyTriangleBig } from "./MyTriangleBig.js";
+import { MyTangram } from "./MyTangram.js";
+
 
 
 /**
@@ -35,6 +37,7 @@ export class MyScene extends CGFscene {
     this.parallelogram = new MyParallelogram(this);
     this.triangleSmall = new MyTriangleSmall(this);
     this.triangleBig = new MyTriangleBig(this);
+    this.tangram = new MyTangram(this, this.diamond, this.parallelogram, this.triangleSmall, this.triangleBig);
 
 
 
@@ -46,6 +49,7 @@ export class MyScene extends CGFscene {
     this.displayParallelogram = true;
     this.displayTriangleSmall = true;
     this.displayTriangleBig = true;
+    this.displayTangram = true;
     this.scaleFactor = 1;
   }
   initLights() {
@@ -79,6 +83,8 @@ export class MyScene extends CGFscene {
     this.loadIdentity();
     // Apply transformations corresponding to the camera position relative to the origin
     this.applyViewMatrix();
+
+    
 
     // Draw axis
     if (this.displayAxis) this.axis.display();
@@ -118,9 +124,11 @@ export class MyScene extends CGFscene {
 
     if(this.displayTriangleBig) this.triangleBig.display();
 
+    if(this.displayTangram) this.tangram.display();
 
 
 
     // ---- END Primitive drawing section
+
   }
 }
