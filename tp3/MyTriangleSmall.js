@@ -22,7 +22,11 @@ export class MyTriangleSmall extends CGFobject {
 			0, 1, 2,
 		];
 
-		
+		this.normals = [
+			0, 0, 1,
+			0, 0, 1,
+			0, 0, 1
+		]
 
 
 		//The defined indices (and corresponding vertices)
