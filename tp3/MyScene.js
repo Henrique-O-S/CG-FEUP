@@ -186,6 +186,7 @@ export class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(this.scaleFactor,this.scaleFactor,this.scaleFactor);
         
+        this.customMaterial.apply();
         if (this.displayNormals)
             this.objects[this.selectedObject].enableNormalViz();
         else

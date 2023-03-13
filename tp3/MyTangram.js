@@ -9,11 +9,11 @@ import { CGFappearance, CGFobject } from "../lib/CGF.js";
 export class MyTangram extends CGFobject {
   constructor(scene, diamond, parallelogram, triangleSmall, triangleBig) {
     super(scene);
+    this.initMaterials(this.scene);
     this.parallelogram = parallelogram;
     this.diamond = diamond;
     this.triangleSmall = triangleSmall;
     this.triangleBig = triangleBig;
-    this.initMaterials();
   }
 
   enableNormalViz(){
@@ -28,6 +28,51 @@ export class MyTangram extends CGFobject {
     this.diamond.disableNormalViz();
     this.triangleSmall.disableNormalViz();
     this.triangleBig.disableNormalViz();
+  }
+
+  initMaterials(){
+    this.pink = new CGFappearance(this.scene);
+    this.pink.setAmbient(1, 0.6, 1, 1.0);
+    this.pink.setDiffuse(0, 0, 0, 1.0);
+    this.pink.setSpecular(1, 1, 1, 1.0);//Done
+    this.pink.setShininess(10.0);
+
+    this.purple = new CGFappearance(this.scene);
+    this.purple.setAmbient(0.8, 0, 0.8, 1.0);
+    this.purple.setDiffuse(0, 0, 0, 1.0);
+    this.purple.setSpecular(1, 1, 1, 1.0);//Done
+    this.purple.setShininess(10.0);
+
+    this.red = new CGFappearance(this.scene);
+    this.red.setAmbient(1, 0, 0, 1.0);
+    this.red.setDiffuse(0, 0, 0, 1.0);//Done
+    this.red.setSpecular(1, 1, 1, 1.0);
+    this.red.setShininess(10.0);
+
+    this.green = new CGFappearance(this.scene);
+    this.green.setAmbient(0, 1, 0, 1.0);
+    this.green.setDiffuse(0, 0, 0, 1.0);
+    this.green.setSpecular(1, 1, 1, 1.0);//Done
+    this.green.setShininess(10.0);
+
+    this.blue = new CGFappearance(this.scene);
+    this.blue.setAmbient(0, 0, 1, 1.0);
+    this.blue.setDiffuse(0, 0, 0, 1.0);
+    this.blue.setSpecular(1, 1, 1, 1.0);
+    this.blue.setShininess(10.0);//Done
+
+    this.orange = new CGFappearance(this.scene);
+    this.orange.setAmbient(1, 0.5, 0, 1.0);
+    this.orange.setDiffuse(0, 0, 0, 1.0); //Done
+    this.orange.setSpecular(1, 1, 1, 1.0);
+    this.orange.setShininess(10.0);
+
+    this.yellow = new CGFappearance(this.scene);
+    this.yellow.setAmbient(1, 1, 0, 1.0);
+    this.yellow.setDiffuse(0, 0, 0, 1.0);
+    this.yellow.setSpecular(1, 1, 1, 1.0);//Done
+    this.yellow.setShininess(10.0);
+
   }
   
 
@@ -44,6 +89,7 @@ export class MyTangram extends CGFobject {
 
     this.scene.multMatrix(m);
 
+    //this.green.apply();
     this.diamond.display();
 
     this.scene.popMatrix();
@@ -52,12 +98,8 @@ export class MyTangram extends CGFobject {
 
     this.scene.translate(5,0,0);
 
-    this.triangleSmallMaterialPurple.apply();
 
-    this.scene.lights[0].update();
-    this.scene.lights[1].update();
-
-
+    this.purple.apply();
     this.triangleSmall.display();
 
     this.scene.popMatrix();
@@ -67,22 +109,16 @@ export class MyTangram extends CGFobject {
     this.scene.translate(2,0,0);
 
 
-    this.triangleBigMaterialOrange.apply();
-    this.scene.lights[0].update();
-    this.scene.lights[1].update();
-
-
+    this.blue.apply();
     this.triangleBig.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
     
-    this.triangleSmallMaterialPink.apply();
-    this.scene.lights[0].update();
-    this.scene.lights[1].update();
 
     this.scene.translate(0,- 1 - Math.sqrt(8),0);
-
+    
+    this.red.apply();
     this.triangleSmall.display();
 
 
@@ -93,10 +129,7 @@ export class MyTangram extends CGFobject {
 
     this.scene.rotate(Math.PI / 4,0,0,1);
 
-    this.triangleBigMaterialBlue.apply();
-    this.scene.lights[0].update();
-    this.scene.lights[1].update();
-
+    this.orange.apply();
     this.triangleBig.display();
 
     this.scene.popMatrix();
@@ -107,9 +140,8 @@ export class MyTangram extends CGFobject {
     this.scene.rotate(Math.PI,1,0,0);
 
     this.scene.rotate(3 * Math.PI / 4,0,0,1);
-    this.parallelogramMaterialYellow.apply();
-    this.scene.lights[0].update();
-    this.scene.lights[1].update();
+
+    this.yellow.apply();
     this.parallelogram.display();
 
     this.scene.popMatrix();
@@ -119,7 +151,7 @@ export class MyTangram extends CGFobject {
 
     this.scene.rotate(Math.PI / 2, 0, 0, 1);
 
-
+    this.pink.apply();
     this.triangleSmall.display();
 
     this.scene.popMatrix();
@@ -130,54 +162,6 @@ export class MyTangram extends CGFobject {
 
     this.triangleSmall.display();
 
-  }
-
-  initMaterials(){
-    this.triangleSmallMaterialPink = new CGFappearance(this.scene);
-    this.triangleSmallMaterialPink.setAmbient(0, 0, 0, 1.0);
-    this.triangleSmallMaterialPink.setDiffuse(0, 0, 0, 1.0);
-    this.triangleSmallMaterialPink.setSpecular(1, 0.75, 0.79, 1.0);//Done
-    this.triangleSmallMaterialPink.setShininess(10.0);
-
-    this.triangleSmallMaterialPurple = new CGFappearance(this.scene);
-    this.triangleSmallMaterialPurple.setAmbient(0, 0, 0, 1.0);
-    this.triangleSmallMaterialPurple.setDiffuse(0, 0, 0, 1.0);
-    this.triangleSmallMaterialPurple.setSpecular(0.53, 0.12, 0.47, 1.0);//Done
-    this.triangleSmallMaterialPurple.setShininess(10.0);
-
-    this.triangleSmallMaterialRed = new CGFappearance(this.scene);
-    this.triangleSmallMaterialRed.setAmbient(0, 0, 0, 1.0);
-    this.triangleSmallMaterialRed.setDiffuse(0, 0, 0, 1.0);//Done
-    this.triangleSmallMaterialRed.setSpecular(1, 0, 0, 1.0);
-    this.triangleSmallMaterialRed.setShininess(10.0);
-
-    this.diamondMaterialGreen = new CGFappearance(this.scene);
-    this.diamondMaterialGreen.setAmbient(0, 0, 0, 1.0);
-    this.diamondMaterialGreen.setDiffuse(0, 0, 0, 1.0);
-    this.diamondMaterialGreen.setSpecular(0, 1, 0.2, 1.0);//Done
-    this.diamondMaterialGreen.setShininess(10.0);
-
-    this.triangleBigMaterialBlue = new CGFappearance(this.scene);
-    this.triangleBigMaterialBlue.setAmbient(0, 0, 0, 1.0);
-    this.triangleBigMaterialBlue.setDiffuse(0, 0, 0, 1.0);
-    this.triangleBigMaterialBlue.setSpecular(0, 0.6, 0.88, 1.0);
-    this.triangleBigMaterialBlue.setShininess(10.0);//Done
-
-    this.triangleBigMaterialOrange = new CGFappearance(this.scene);
-    this.triangleBigMaterialOrange.setAmbient(0, 0, 0, 1.0);
-    this.triangleBigMaterialOrange.setDiffuse(0, 0, 0, 1.0); //Done
-    this.triangleBigMaterialOrange.setSpecular(1, 0.647, 1, 1.0);
-    this.triangleBigMaterialOrange.setShininess(10.0);
-
-    this.parallelogramMaterialYellow = new CGFappearance(this.scene);
-    this.parallelogramMaterialYellow.setAmbient(0, 0, 0, 1.0);
-    this.parallelogramMaterialYellow.setDiffuse(0, 0, 0, 1.0);
-    this.parallelogramMaterialYellow.setSpecular(0.98, 0.93, 0.36, 1.0);//Done
-    this.parallelogramMaterialYellow.setShininess(10.0);
-
-
-
-
-
+    this.scene.popMatrix();
   }
 }
