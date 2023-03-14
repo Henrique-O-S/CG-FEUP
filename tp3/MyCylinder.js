@@ -23,30 +23,43 @@ export class MyCylinder extends CGFobject {
         var ang = 0;
         var alphaAng = 2*Math.PI/this.slices;
 
-		/*
+		
 		for(var i = 0; i < this.slices; i++){
 
             this.vertices.push(Math.cos(ang), Math.sin(ang), 0);
             this.indices.push(i, this.slices, (i+1) % this.slices);
-            this.normals.push(0, 0, -1);
+            this.normals.push(Math.cos(ang), Math.sin(ang), -1);
             ang+=alphaAng;
         }
+		this.vertices.push(0,0,0);
+        this.normals.push(0,0,-1);
+
 		
 		
+	
 		for(var i = 0; i < this.stacks; i++){
 			ang = 0;
 			for(var j = 0; j < this.slices; j++){
 
 				this.vertices.push(Math.cos(ang), Math.sin(ang), i+1);
-				this.indices.push(j + this.stacks*(i+1), ((j+1) % this.slices) + this.stacks*(i+1), this.slices + this.stacks*(i+1));
-				this.normals.push(0, 0, 1);
+				if(j == this.slices - 1){
+					this.indices.push((j+1) + (i+1) * this.slices + (i*1), (i+1) * (this.slices+1), (this.slices+1) * (i+2) - 1);
+				}
+				else{
+					this.indices.push((j+1) + (i+1) * this.slices + (i*1), (j+2) + (i+1) * this.slices + (i*1), (this.slices+1) * (i+2) - 1);
+				}
+				this.normals.push(Math.cos(ang), Math.sin(ang), 1);
 				ang+=alphaAng;
 			}
+			this.vertices.push(0,0,i+1);
+        	this.normals.push(0,0,1);
 		}
-		*/
+		
+		
+		
 		
 
-		
+		/*
 		for(var i = 0; i < this.slices; i++){
             // All vertices have to be declared for a given face
             // even if they are shared with others, as the normals 
@@ -133,11 +146,18 @@ export class MyCylinder extends CGFobject {
 				ang+=alphaAng;
 			}
 		}
+		*/
 
 		for(var i = 0; i < this.stacks; i++){
 			for(var j = 0; j < this.slices; j++){
-				this.indices.push((3*j+1) + 3*this.slices * (i) , (3*j+2) + 3*this.slices * (i) , (3*j+1) + 3*this.slices * (i+1) );
-				this.indices.push((3*j+1) + 3*this.slices * (i+1) , (3*j+2) + 3*this.slices * (i) , (3*j+2) + 3*this.slices * (i+1) );
+				if(j == this.slices-1){
+					this.indices.push(j+i*(this.slices+1), i*(this.slices+1), j+(i+1)*(this.slices+1));
+					this.indices.push(j+(i+1)*(this.slices+1), i*(this.slices+1), (i+1)*(this.slices+1));
+				}
+				else{
+				this.indices.push(j+i*(this.slices+1), (j+1)+i*(this.slices+1), j+(i+1)*(this.slices+1));
+				this.indices.push(j+(i+1)*(this.slices+1), (j+1)+i*(this.slices+1), (j+1)+(i+1)*(this.slices+1));
+				}
 			}
 		}
 		
