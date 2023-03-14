@@ -12,4 +12,4 @@
 
 ![Screenshot 3](screenshots/cg-t06g02-tp3-3.png)
 
-![Screenshot 4](screenshots/cg-t06g02-tp3-3.png)
+![Screenshot 4](screenshots/cg-t06g02-tp3-4.png)
