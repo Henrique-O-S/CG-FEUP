@@ -42,6 +42,7 @@ export class MyUnitCubeQuad extends CGFobject {
 
     //front and back
     this.front.apply();
+    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.myQuad.display();
 
@@ -50,6 +51,7 @@ export class MyUnitCubeQuad extends CGFobject {
     this.scene.rotate(Math.PI,0,1,0);
 
     this.back.apply();
+    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.myQuad.display();
 
@@ -63,6 +65,7 @@ export class MyUnitCubeQuad extends CGFobject {
     this.scene.rotate(-Math.PI/2,1,0,0);
 
     this.top.apply();
+    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
 
     this.myQuad.display();
@@ -85,6 +88,7 @@ export class MyUnitCubeQuad extends CGFobject {
 
     this.scene.rotate(Math.PI/2,0,1,0);
     this.right.apply();
+    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
     this.myQuad.display();
 
@@ -92,6 +96,7 @@ export class MyUnitCubeQuad extends CGFobject {
 
     this.scene.rotate(Math.PI,0,1,0);
     this.left.apply();
+    this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
 
     this.myQuad.display();
