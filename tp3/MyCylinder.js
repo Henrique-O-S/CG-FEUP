@@ -28,7 +28,7 @@ export class MyCylinder extends CGFobject {
 
             this.vertices.push(Math.cos(ang), Math.sin(ang), 0);
             this.indices.push(i, this.slices, (i+1) % this.slices);
-            this.normals.push(Math.cos(ang), Math.sin(ang), -1);
+            this.normals.push(Math.cos(ang), Math.sin(ang), 0);
             ang+=alphaAng;
         }
 		this.vertices.push(0,0,0);
@@ -48,7 +48,7 @@ export class MyCylinder extends CGFobject {
 				else{
 					this.indices.push((j+1) + (i+1) * this.slices + (i*1), (j+2) + (i+1) * this.slices + (i*1), (this.slices+1) * (i+2) - 1);
 				}
-				this.normals.push(Math.cos(ang), Math.sin(ang), 1);
+				this.normals.push(Math.cos(ang), Math.sin(ang), 0);
 				ang+=alphaAng;
 			}
 			this.vertices.push(0,0,i+1);

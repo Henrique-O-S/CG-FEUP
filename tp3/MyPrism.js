@@ -65,7 +65,7 @@ export class MyPrism extends CGFobject {
             var normal= [
                 caa+ca,
                 saa+sa,
-                -1
+                0
             ];
 
             // normalization
@@ -110,7 +110,7 @@ export class MyPrism extends CGFobject {
 				var normal= [
 					caa+ca,
 					saa+sa,
-					1
+					0
 				];
 
 				// normalization
