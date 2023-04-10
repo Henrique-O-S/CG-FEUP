@@ -28,7 +28,7 @@ export class MySphere extends CGFobject {
             for (var j = 0; j < this.slices; j++) {
                 this.vertices.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
                 this.normals.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), 0, this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.texCoords.push((this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks)) / (this.radius * Math.cos(this.slices * Math.PI * 2 / this.slices) * Math.cos(this.stacks * Math.PI / 2 / this.stacks)), ((this.radius * Math.sin(i * Math.PI / 2 / this.stacks)) / (this.radius * Math.sin(this.stacks * Math.PI / 2 / this.stacks))) / 2);
+                this.texCoords.push((this.slices - 1 - j) / this.slices - 1, ((this.stacks - i) / this.stacks) / 2);
             }
         }
 
@@ -38,7 +38,7 @@ export class MySphere extends CGFobject {
             for (var j = 0; j < this.slices; j++) {
                 this.vertices.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), - this.radius * Math.sin(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
                 this.normals.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), 0, this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.texCoords.push((this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks)) / (this.radius * Math.cos(this.slices * Math.PI * 2 / this.slices) * Math.cos(this.stacks * Math.PI / 2 / this.stacks)), ((this.radius * Math.sin(i * Math.PI / 2 / this.stacks)) / (this.radius * Math.sin(this.stacks * Math.PI / 2 / this.stacks))) / 2 + 0.5);
+                this.texCoords.push((this.slices - 1 - j) / this.slices - 1, (i / this.stacks) / 2 + 0.5);
             }
         }
 
