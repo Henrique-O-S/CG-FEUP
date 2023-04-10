@@ -1,5 +1,6 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
+import { MySphere } from "./MySphere.js";
 
 /**
  * MyScene
@@ -26,14 +27,24 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
+    this.sphere = new MySphere(this,20,20,1)
+
+    this.objects = [this.plane, this.sphere];
+
+    // Labels and ID's for object selection on MyInterface
+    this.objectIDs = { 'Plane': 0 , 'Sphere': 1};
 
     //Objects connected to MyInterface
+    this.selectedObject = 0;
     this.displayAxis = true;
+    this.displayNormals = false;
+    this.objectComplexity = 0.5;
     this.scaleFactor = 1;
 
     this.enableTextures(true);
 
 this.texture = new CGFtexture(this, "images/terrain.jpg");
+this.texture2 = new CGFtexture(this, "images/earth.jpg");
 this.appearance = new CGFappearance(this);
 this.appearance.setTexture(this.texture);
 this.appearance.setTextureWrap('REPEAT', 'REPEAT');
@@ -60,6 +71,11 @@ this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     this.setSpecular(0.2, 0.4, 0.8, 1.0);
     this.setShininess(10.0);
   }
+
+  updateObjectComplexity(){
+    this.objects[this.selectedObject].updateBuffers(this.objectComplexity);
+}
+
   display() {
     // ---- BEGIN Background, camera and axis setup
     // Clear image and depth buffer everytime we update the scene
@@ -83,6 +99,9 @@ this.appearance.setTextureWrap('REPEAT', 'REPEAT');
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
+
+    this.texture2.bind(this.sphere);
+    this.sphere.display();
 
     // ---- END Primitive drawing section
   }
