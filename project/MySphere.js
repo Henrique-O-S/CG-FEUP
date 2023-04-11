@@ -5,63 +5,79 @@ import {CGFobject} from '../lib/CGF.js';
  * @param scene - Reference to MyScene object
  * @param slices - number of divisions around the Y axis
  * @param stacks - number of divisions along the Y axis
- * @param radius - radius of the sphere
 */
 export class MySphere extends CGFobject {
 
-    constructor(scene, slices, stacks, radius) {
+    constructor(scene, slices, stacks) {
         super(scene);
-        this.slices = slices;
         this.stacks = stacks;
-        this.radius = radius;
+        this.slices = slices;
+    
         this.initBuffers();
-    };
-
-    initBuffers() {
+      }
+    
+      /**
+       * @method initBuffers
+       * Initializes the sphere buffers
+       * TODO: DEFINE TEXTURE COORDINATES
+       */
+      initBuffers() {
         this.vertices = [];
-        this.normals = [];
         this.indices = [];
+        this.normals = [];
         this.texCoords = [];
-
-
-        for (var i = 0; i <= this.stacks; i++) {
-            for (var j = 0; j < this.slices; j++) {
-                this.vertices.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.normals.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), 0, this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.texCoords.push((this.slices - 1 - j) / this.slices - 1, ((this.stacks - i) / this.stacks) / 2);
+    
+        var phi = 0;
+        var theta = 0;
+        var phiInc = Math.PI / this.stacks;
+        var thetaInc = (2 * Math.PI) / this.slices;
+    
+        // build an all-around stack at a time, starting on "north pole" and proceeding "south"
+        for (let i = 0; i <= this.stacks; i++) {
+          var sinPhi = Math.sin(phi);
+          var cosPhi = Math.cos(phi);
+    
+          // in each stack, build all the slices around
+          theta = 0;
+          for (let j = 0; j <= this.slices; j++) {
+            //--- Vertices coordinates
+            var x = Math.cos(theta) * sinPhi;
+            var y = cosPhi;
+            var z = Math.sin(-theta) * sinPhi;
+            this.vertices.push(x, y, z);
+    
+            //--- Indices
+            if (i < this.stacks && j < this.slices) {
+              var current = i * (this.slices + 1) + j;
+              var next = current + (this.slices + 1);
+              // pushing two triangles using indices from this round (current, current+1)
+              // and the ones directly south (next, next+1)
+              // (i.e. one full round of slices ahead)
+              
+              this.indices.push(current + 1, current, next);
+              this.indices.push(current + 1, next, next +1);
             }
+    
+            //--- Normals
+            // at each vertex, the direction of the normal is equal to 
+            // the vector from the center of the sphere to the vertex.
+            // in a sphere of radius equal to one, the vector length is one.
+            // therefore, the value of the normal is equal to the position vectro
+            this.normals.push(x, y, z);
+            theta += thetaInc;
+    
+            //--- Texture Coordinates
+            // To be done... 
+            // May need some additional code also in the beginning of the function.
+            this.texCoords.push(j/this.slices, i/this.stacks);
+            
+          }
+          phi += phiInc;
         }
-
-        
-
-        for (var i = 0; i <= this.stacks; i++) {
-            for (var j = 0; j < this.slices; j++) {
-                this.vertices.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), - this.radius * Math.sin(i * Math.PI / 2 / this.stacks), this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.normals.push(this.radius * Math.cos(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks), 0, this.radius * Math.sin(j * Math.PI * 2 / this.slices) * Math.cos(i * Math.PI / 2 / this.stacks));
-                this.texCoords.push((this.slices - 1 - j) / this.slices - 1, (i / this.stacks) / 2 + 0.5);
-            }
-        }
-
-        for (var i = 0; i < 2 * this.stacks; i++) {
-            for (var j = 0; j < 2 * this.slices - 1; j++) {
-                this.indices.push(this.slices * i + j, this.slices * i + j + 1, this.slices * (i + 1) + j);
-                this.indices.push(this.slices * i + j + 1, this.slices * i + j, this.slices * (i + 1) + j);
-                this.indices.push(this.slices * (i + 1) + j, this.slices * (i + 1) + j + 1, this.slices * i + j + 1);
-                this.indices.push(this.slices * (i + 1) + j + 1, this.slices * (i + 1) + j, this.slices * i + j + 1);
-            }
-        }
-
-        for (var i = 0; i < 2 * this.stacks; i++) {
-            var j = this.slices - 1;
-            this.indices.push(this.slices * i, this.slices * i + j + 1, this.slices * i + j);
-            this.indices.push(this.slices * i + j + 1, this.slices * i, this.slices * i + j);
-            this.indices.push(this.slices * i + j, this.slices * i + j + 1, this.slices * (i + 1) + j);
-            this.indices.push(this.slices * i + j + 1, this.slices * i + j, this.slices * (i + 1) + j);
-        }
-
+    
        
 
-        this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
+        this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
 
