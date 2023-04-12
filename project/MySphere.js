@@ -2,16 +2,24 @@ import {CGFobject} from '../lib/CGF.js';
 /**
 * MySphere
 * @constructor
- * @param scene - Reference to MyScene object
- * @param slices - number of divisions around the Y axis
- * @param stacks - number of divisions along the Y axis
+ * @param scene    - Reference to MyScene object
+ * @param slices   - number of divisions around the Y axis
+ * @param stacks   - number of divisions along the Y axis
+ * @param radius   - radius of the sphere
+ * @param inverted - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
+ * @param offset   - vector to be added to the position of the center
+
+
 */
 export class MySphere extends CGFobject {
 
-    constructor(scene, slices, stacks) {
+    constructor(scene, slices, stacks, radius, inverted = false, offset = [0,0,0]) {
         super(scene);
         this.stacks = stacks;
         this.slices = slices;
+        this.radius = radius;
+        this.inverted = inverted;
+        this.offset = offset;
     
         this.initBuffers();
       }
@@ -44,7 +52,12 @@ export class MySphere extends CGFobject {
             var x = Math.cos(theta) * sinPhi;
             var y = cosPhi;
             var z = Math.sin(-theta) * sinPhi;
-            this.vertices.push(x, y, z);
+            if(this.inverted){
+              this.vertices.push(x * this.radius + this.offset[0], y * this.radius + this.offset[1], z * this.radius + this.offset[2]);
+            }
+            else{
+              this.vertices.push(x * this.radius, y * this.radius, z * this.radius);
+            }
     
             //--- Indices
             if (i < this.stacks && j < this.slices) {
@@ -53,9 +66,15 @@ export class MySphere extends CGFobject {
               // pushing two triangles using indices from this round (current, current+1)
               // and the ones directly south (next, next+1)
               // (i.e. one full round of slices ahead)
-              
-              this.indices.push(current + 1, current, next);
-              this.indices.push(current + 1, next, next +1);
+              if(this.inverted){
+                this.indices.push(current + 1, next, current);
+                this.indices.push(current + 1, next + 1, next);
+              }
+
+              else{
+                this.indices.push(current + 1, current, next);
+                this.indices.push(current + 1, next, next + 1);
+              }
             }
     
             //--- Normals
@@ -63,7 +82,12 @@ export class MySphere extends CGFobject {
             // the vector from the center of the sphere to the vertex.
             // in a sphere of radius equal to one, the vector length is one.
             // therefore, the value of the normal is equal to the position vectro
-            this.normals.push(x, y, z);
+            if(this.inverted){
+              this.normals.push(-x, -y, -z);
+            }
+            else{
+              this.normals.push(x, y, z);
+            }
             theta += thetaInc;
     
             //--- Texture Coordinates
@@ -100,6 +124,11 @@ export class MySphere extends CGFobject {
         // reinitialize buffers
         this.initBuffers();
         this.initNormalVizBuffers();
+    }
+
+    changeOffSet(position){
+      this.offset = position;
+      this.initBuffers();
     }
 };
 
