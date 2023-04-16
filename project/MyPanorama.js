@@ -8,7 +8,7 @@ export class MyPanorama extends CGFobject {
       super(scene);
       this.texture = texture;
       this.scene = scene;
-      this.sphere = new MySphere(scene, 50, 20, 200, true, [0,0,0]);
+      this.sphere = new MySphere(scene, 50, 20, 200, "inverted", [0,0,0]);
       this.initMaterials();
     }
     

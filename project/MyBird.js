@@ -1,5 +1,7 @@
 import { CGFappearance, CGFobject } from "../lib/CGF.js";
+import { MySphere } from "./MySphere.js";
 import { MyWing } from "./MyWing.js";
+import { MyBody } from "./MyBody.js";
 
 
 
@@ -8,8 +10,9 @@ import { MyWing } from "./MyWing.js";
  * @constructor
  */
 export class MyBird extends CGFobject {
-  constructor(scene) {
+  constructor(scene, position) {
     super(scene);
+    this.position = position;
     this.initMaterials(scene);
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
@@ -18,8 +21,10 @@ export class MyBird extends CGFobject {
     this.triangleSmallPink = new MyTriangleSmall(scene, "pink");
     this.triangleBigBlue = new MyTriangleBig(scene, "blue");
     this.triangleBigOrange = new MyTriangleBig(scene, "orange"); */
-    this.wing = new MyWing(scene);
-
+    this.rightWing = new MyWing(scene, "right");
+    this.leftWing = new MyWing(scene, "left");
+    this.head = new MySphere(scene, 50, 20, 0.5);
+    this.body = new MyBody(scene);
   }
 
   enableNormalViz(){
@@ -76,92 +81,25 @@ export class MyBird extends CGFobject {
   
 
   display() {
-    this.wing.display();
-
-    /* this.scene.pushMatrix();
-
-    var m = [
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0, 
-      4, 1, 0, 1
-    ]
-
-    this.scene.multMatrix(m);
-
-    this.newMaterialGreen.apply();
-    this.diamond.display();
-
-    this.scene.popMatrix();
-
     this.scene.pushMatrix();
-
-    this.scene.translate(5,0,0);
-
-
-    this.purple.apply();
-    this.triangleSmallPurple.display();
-
-    this.scene.popMatrix();
-
-    this.scene.pushMatrix();
-
-    this.scene.translate(2,0,0);
-
-
-    this.blue.apply();
-    this.triangleBigBlue.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-    
-
-    this.scene.translate(0,- 1 - Math.sqrt(8),0);
-    
-    this.red.apply();
-    this.triangleSmallRed.display();
-
+    this.scene.translate(this.position[0],this.position[1],this.position[2]);
+    this.head.display();
+    this.scene.translate(0, -1, 0);
+    this.body.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
 
-    this.scene.translate(Math.sqrt(2), - Math.sqrt(2), 0);
-
-    this.scene.rotate(Math.PI / 4,0,0,1);
-
-    this.orange.apply();
-    this.triangleBigOrange.display();
+    this.scene.translate(this.position[0] * 3,this.position[1] * 3,this.position[2] * 3);
+    this.rightWing.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
 
-    this.scene.translate(-((2-Math.sqrt(2))/2),-2,0);
 
-    this.scene.rotate(Math.PI,1,0,0);
-
-    this.scene.rotate(3 * Math.PI / 4,0,0,1);
-
-    this.yellow.apply();
-    this.parallelogram.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-
-    this.scene.translate(0,-1,0);
-
-    this.scene.rotate(Math.PI / 2, 0, 0, 1);
-
-    this.pink.apply();
-    this.triangleSmallPink.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-
-    this.scene.translate(-1,-2,0);
+    this.scene.rotate(Math.PI, 0, 0, 1);
+    this.leftWing.display();
 
 
-    this.triangleSmallPink.display();
-
-    this.scene.popMatrix(); */
   }
 }

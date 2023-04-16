@@ -1,5 +1,6 @@
 import { CGFappearance, CGFobject } from "../lib/CGF.js";
-import { MyTriangleSmall } from "./MyTriangleSmall.js"
+import { MyWingTriangle } from "./MyWingTriangle.js"
+import { MyWingTriangleTip } from "./MyWingTriangleTip.js";
 
 
 
@@ -8,10 +9,12 @@ import { MyTriangleSmall } from "./MyTriangleSmall.js"
  * @constructor
  */
 export class MyWing extends CGFobject {
-  constructor(scene) {
+  constructor(scene, orientation) {
     super(scene);
     this.initMaterials(scene);
-    this.triangleSmall = new MyTriangleSmall(scene);
+    this.orientation = orientation == "right" ? -1 : 1;
+    this.initialTriangle = new MyWingTriangle(scene);
+    this.tip = new MyWingTriangleTip(scene);
 
   }
 
@@ -30,6 +33,27 @@ export class MyWing extends CGFobject {
   
 
   display() {
-    this.triangleSmall.display();
+    this.scene.pushMatrix();
+
+    this.initialTriangle.display();
+
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
+
+    this.scene.scale(0.5, 1, 0.5);
+
+    this.scene.rotate(Math.PI, 0, 1, 0);
+
+    this.scene.translate(-1.6, 0, -0.4);
+    this.initialTriangle.display();
+
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
+
+    this.scene.translate(0.8, 0, 0);
+    this.scene.rotate((Math.PI * this.orientation) / 6, 0, 0, 1);
+
+    this.tip.display();
+
   }
 }

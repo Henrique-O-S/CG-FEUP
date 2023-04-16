@@ -13,14 +13,13 @@ import {CGFobject} from '../lib/CGF.js';
 */
 export class MySphere extends CGFobject {
 
-    constructor(scene, slices, stacks, radius, inverted = false, offset = [0,0,0]) {
+    constructor(scene, slices, stacks, radius, special = false, offset = [0,0,0]) {
         super(scene);
         this.stacks = stacks;
         this.slices = slices;
         this.radius = radius;
-        this.inverted = inverted;
+        this.special = special;
         this.offset = offset;
-    
         this.initBuffers();
       }
     
@@ -52,7 +51,10 @@ export class MySphere extends CGFobject {
             var x = Math.cos(theta) * sinPhi;
             var y = cosPhi;
             var z = Math.sin(-theta) * sinPhi;
-            if(this.inverted){
+            if(this.special == "half"){
+              x = Math.min(x, 0);
+            }
+            if(this.special == "inverted"){
               this.vertices.push(x * this.radius + this.offset[0], y * this.radius + this.offset[1], z * this.radius + this.offset[2]);
             }
             else{
@@ -66,7 +68,7 @@ export class MySphere extends CGFobject {
               // pushing two triangles using indices from this round (current, current+1)
               // and the ones directly south (next, next+1)
               // (i.e. one full round of slices ahead)
-              if(this.inverted){
+              if(this.special == "inverted"){
                 this.indices.push(current + 1, next, current);
                 this.indices.push(current + 1, next + 1, next);
               }
@@ -82,7 +84,7 @@ export class MySphere extends CGFobject {
             // the vector from the center of the sphere to the vertex.
             // in a sphere of radius equal to one, the vector length is one.
             // therefore, the value of the normal is equal to the position vectro
-            if(this.inverted){
+            if(this.special == "inverted"){
               this.normals.push(-x, -y, -z);
             }
             else{
