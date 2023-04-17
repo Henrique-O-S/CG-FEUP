@@ -3,6 +3,7 @@ import { MyBird } from "./MyBird.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
+import { MyTerrain } from "./MyTerrain.js";
 
 /**
  * MyScene
@@ -31,19 +32,21 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this, 30);
     this.sphere = new MySphere(this, 50, 20, 200);
     this.bird = new MyBird(this);
+    this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
 
-    this.objects = [this.plane, this.sphere, this.panorama, this.bird];
+    this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain];
 
     // Labels and ID's for object selection on MyInterface
-    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3};
+    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4};
 
     //Objects connected to MyInterface
     this.selectedObject = 0;
-    this.displayAxis = false;
+    this.displayAxis = true;
     this.displayPlane = false;
     this.displaySphere = false;
-    this.displayPanorama = true;
+    this.displayPanorama = false;
     this.displayBird = false;
+    this.displayTerrain = true;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
@@ -54,8 +57,8 @@ export class MyScene extends CGFscene {
     this.texture2 = new CGFtexture(this, "images/test.jpg");
     this.panorama = new MyPanorama(this, this.texture2);
     this.appearance = new CGFappearance(this);
-    this.appearance.setTexture(this.texture);
-    this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+    //this.appearance.setTexture(this.texture);
+    //this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
   }
   initLights() {
@@ -107,6 +110,8 @@ export class MyScene extends CGFscene {
     this.appearance.apply();
 
     if (this.displayPlane){
+      this.appearance.setTexture(this.texture);
+      this.appearance.setTextureWrap('REPEAT', 'REPEAT');
       this.translate(0,-100,0);
       this.scale(400,400,400);
       this.rotate(-Math.PI/2.0,1,0,0);
@@ -114,17 +119,33 @@ export class MyScene extends CGFscene {
       this.popMatrix();
     }
 
+    this.pushMatrix();
     if(this.displaySphere){
       this.texture2.bind(this.sphere);
       this.sphere.display();
+      this.popMatrix();
     }
+
+    this.pushMatrix();
     if(this.displayPanorama){
       this.panorama.updatePosition(this.camera.position);
       this.panorama.display();
+      this.popMatrix();
     }
 
+    this.pushMatrix();
     if(this.displayBird){
       this.bird.display();
+      this.popMatrix();
+    }
+
+    this.pushMatrix();
+    if(this.displayTerrain){
+      this.translate(0,-100,0);
+      this.scale(400,400,400);
+      this.rotate(-Math.PI/2.0,1,0,0);
+      this.terrain.display();
+      this.popMatrix();
     }
     // ---- END Primitive drawing section
   }
