@@ -1,4 +1,4 @@
-import { CGFappearance, CGFobject } from "../lib/CGF.js";
+import { CGFappearance, CGFobject, CGFtexture } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyWing } from "./MyWing.js";
 import { MyBody } from "./MyBody.js";
@@ -14,7 +14,7 @@ export class MyBird extends CGFobject {
   constructor(scene, position) {
     super(scene);
     this.position = position;
-    this.initMaterials(scene);
+    
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
     this.triangleSmallRed = new MyTriangleSmall(scene, "red");
@@ -25,6 +25,9 @@ export class MyBird extends CGFobject {
     this.wings = new MyWings(scene);
     this.head = new MySphere(scene, 50, 20, 0.35);
     this.body = new MyBody(scene);
+
+    this.initMaterials();
+    this.initTextures();
   }
 
   enableNormalViz(){
@@ -42,45 +45,34 @@ export class MyBird extends CGFobject {
   }
 
   initMaterials(){
-   /*  this.pink = new CGFappearance(this.scene);
-    this.pink.loadTexture('images/tangram.png');
-    this.pink.setTextureWrap('REPEAT', 'REPEAT');
 
-    this.purple = new CGFappearance(this.scene);
-    this.purple.loadTexture('images/tangram.png');
-    this.purple.setTextureWrap('REPEAT', 'REPEAT');
+    this.material1 = new CGFappearance(this.scene);
+		this.material1.setShininess(1);
+		this.material1.setEmission(1, 1, 1, 1);
+		this.material1.setAmbient(1, 1, 1, 1);
+		this.material1.setDiffuse(1, 1, 1, 1);
+		this.material1.setSpecular(1, 1, 1, 1);
 
-    this.red = new CGFappearance(this.scene);
-    this.red.loadTexture('images/tangram.png');
-    this.red.setTextureWrap('REPEAT', 'REPEAT');
+    this.material2 = new CGFappearance(this.scene);
+		this.material2.setShininess(1);
+		this.material2.setEmission(1, 1, 1, 1);
+		this.material2.setAmbient(1, 1, 1, 1);
+		this.material2.setDiffuse(1, 1, 1, 1);
+		this.material2.setSpecular(1, 1, 1, 1);
 
-    this.green = new CGFappearance(this.scene);
-    this.green.setAmbient(0, 1, 0, 1.0);
-    this.green.setDiffuse(0, 0, 0, 1.0);
-    this.green.setSpecular(1, 1, 1, 1.0);//Done
-    this.green.setShininess(10.0);
+  }
 
-    this.blue = new CGFappearance(this.scene);
-    this.blue.loadTexture('images/tangram.png');
-    this.blue.setTextureWrap('REPEAT', 'REPEAT');
-
-    this.orange = new CGFappearance(this.scene);
-    this.orange.loadTexture('images/tangram.png');
-    this.orange.setTextureWrap('REPEAT', 'REPEAT');
-
-    this.yellow = new CGFappearance(this.scene);
-    this.yellow.loadTexture('images/tangram.png');
-    this.yellow.setTextureWrap('REPEAT', 'REPEAT');
-
-
-    this.newMaterialGreen = new CGFappearance(this.scene);
-    this.newMaterialGreen.loadTexture('images/tangram.png');
-    this.newMaterialGreen.setTextureWrap('REPEAT', 'REPEAT'); */
-
+  initTextures(){
+    this.feathersTexture = new CGFtexture(this.scene, 'images/feathers2.jpg');
+    this.material1.setTexture(this.feathersTexture);
+    this.material2.setTexture(this.feathersTexture);
   }
   
 
   display() {
+
+    this.material1.apply();
+
     this.scene.pushMatrix();
     this.scene.translate(this.position[0],this.position[1],this.position[2]);
     this.head.display();

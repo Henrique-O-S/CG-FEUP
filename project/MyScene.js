@@ -68,15 +68,15 @@ export class MyScene extends CGFscene {
     this.lights[0].update();
   }
   initCameras() {
-    /* this.camera = new CGFcamera(
+    this.camera = new CGFcamera(
       1.23,
       0.1,
       1000,
       vec3.fromValues(0, 0, 0),
       vec3.fromValues(0, 0, 1)
-    ); */
+    );
 
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+    //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
   }
   setDefaultAppearance() {
@@ -119,15 +119,15 @@ export class MyScene extends CGFscene {
       this.scale(400,400,400);
       this.rotate(-Math.PI/2.0,1,0,0);
       this.plane.display();
-      this.popMatrix();
     }
+    this.popMatrix();
 
     this.pushMatrix();
     if(this.displaySphere){
       this.texture2.bind(this.sphere);
       this.sphere.display();
-      this.popMatrix();
     }
+    this.popMatrix();
 
     this.pushMatrix();
     if(this.displayPanorama){
@@ -139,8 +139,8 @@ export class MyScene extends CGFscene {
     this.pushMatrix();
     if(this.displayBird){
       this.bird.display();
-      this.popMatrix();
     }
+    this.popMatrix();
 
     this.pushMatrix();
     if(this.displayTerrain){
@@ -148,8 +148,8 @@ export class MyScene extends CGFscene {
       this.scale(400,400,400);
       this.rotate(-Math.PI/2.0,1,0,0);
       this.terrain.display();
-      this.popMatrix();
     }
+    this.popMatrix();
     // ---- END Primitive drawing section
   }
 }

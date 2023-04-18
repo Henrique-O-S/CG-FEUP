@@ -1,4 +1,4 @@
-import { CGFappearance, CGFobject } from "../lib/CGF.js";
+import { CGFappearance, CGFobject, CGFtexture } from "../lib/CGF.js";
 import { MyBodyTriangle } from "./MyBodyTriangle.js";
 import { MyBodyTriangleVertical } from "./MyBodyTriangleVertical.js";
 import { MySphere } from "./MySphere.js";
@@ -12,10 +12,13 @@ import { MySphere } from "./MySphere.js";
 export class MyBody extends CGFobject {
   constructor(scene) {
     super(scene);
-    this.initMaterials();
+
     this.chest = new MySphere(scene, 50, 20, 0.5, "half");
     this.lateral = new MyBodyTriangle(scene);
     this.vertical = new MyBodyTriangleVertical(scene);
+
+    this.initMaterials();
+    this.initTextures();
   }
 
   enableNormalViz(){
@@ -27,19 +30,30 @@ export class MyBody extends CGFobject {
   }
 
   initMaterials(){
-   
 
+    this.material1 = new CGFappearance(this.scene);
+		this.material1.setShininess(1);
+		this.material1.setAmbient(1, 1, 1, 1);
+		this.material1.setDiffuse(1, 1, 1, 1);
+		this.material1.setSpecular(1, 1, 1, 1);
+
+  }
+
+  initTextures(){
+    this.feathersTexture = new CGFtexture(this.scene, 'images/feathers2.jpg');
+    this.material1.setTexture(this.feathersTexture);
   }
   
 
   display() {
+
     this.scene.pushMatrix();
+    this.material1.apply();
     this.scene.rotate(Math.PI / 2, 0, 1, 0);
     this.chest.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
-
     this.scene.translate(-0.2, 0.5, 0);
     this.lateral.display();
 

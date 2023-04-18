@@ -1,4 +1,4 @@
-import {CGFobject} from '../lib/CGF.js';
+import {CGFappearance, CGFobject, CGFtexture} from '../lib/CGF.js';
 /**
  * MyDiamond
  * @constructor
@@ -8,6 +8,8 @@ export class MyBodyTriangleVertical extends CGFobject {
 	constructor(scene) {
 		super(scene);
 		this.initBuffers();
+		this.initMaterials();
+    	this.initTextures();
 	}
 	
 	initBuffers() {
@@ -36,6 +38,15 @@ export class MyBodyTriangleVertical extends CGFobject {
 			0, 0, -1
 		];
 
+		this.texCoords = [
+			0, 0,
+			1, 0,
+			0, 1,
+			0, 0,
+			1, 0,
+			0, 1
+		];
+
 
 
 		//The defined indices (and corresponding vertices)
@@ -43,6 +54,21 @@ export class MyBodyTriangleVertical extends CGFobject {
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
 		this.initGLBuffers();
+	}
+
+	initMaterials(){
+
+		this.material1 = new CGFappearance(this.scene);
+			this.material1.setShininess(1);
+			this.material1.setAmbient(1, 1, 1, 1);
+			this.material1.setDiffuse(1, 1, 1, 1);
+			this.material1.setSpecular(1, 1, 1, 1);
+	
+	}
+
+	initTextures(){
+		this.feathersTexture = new CGFtexture(this.scene, 'images/feathers2.jpg');
+		this.material1.loadTexture(this.feathersTexture);
 	}
 }
 
