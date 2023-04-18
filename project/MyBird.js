@@ -2,6 +2,7 @@ import { CGFappearance, CGFobject } from "../lib/CGF.js";
 import { MySphere } from "./MySphere.js";
 import { MyWing } from "./MyWing.js";
 import { MyBody } from "./MyBody.js";
+import { MyWings } from "./MyWings.js";
 
 
 
@@ -21,9 +22,8 @@ export class MyBird extends CGFobject {
     this.triangleSmallPink = new MyTriangleSmall(scene, "pink");
     this.triangleBigBlue = new MyTriangleBig(scene, "blue");
     this.triangleBigOrange = new MyTriangleBig(scene, "orange"); */
-    this.rightWing = new MyWing(scene, "right");
-    this.leftWing = new MyWing(scene, "left");
-    this.head = new MySphere(scene, 50, 20, 0.5);
+    this.wings = new MyWings(scene);
+    this.head = new MySphere(scene, 50, 20, 0.35);
     this.body = new MyBody(scene);
   }
 
@@ -84,21 +84,14 @@ export class MyBird extends CGFobject {
     this.scene.pushMatrix();
     this.scene.translate(this.position[0],this.position[1],this.position[2]);
     this.head.display();
-    this.scene.translate(0, -1, 0);
+    this.scene.translate(0, -0.85, 0);
     this.body.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
 
-    this.scene.translate(this.position[0] * 3,this.position[1] * 3,this.position[2] * 3);
-    this.rightWing.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-
-
-    this.scene.rotate(Math.PI, 0, 0, 1);
-    this.leftWing.display();
+    this.scene.translate(this.position[0] + 0.2,this.position[1],this.position[2] - 0.5);
+    this.wings.display();
 
 
   }

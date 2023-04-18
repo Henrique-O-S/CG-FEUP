@@ -30,7 +30,7 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
     this.sphere = new MySphere(this, 50, 20, 200);
-    this.bird = new MyBird(this, [1,1,1]);
+    this.bird = new MyBird(this, [0,0,0]);
 
     this.objects = [this.plane, this.sphere, this.panorama, this.bird];
 

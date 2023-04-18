@@ -13,12 +13,12 @@ export class MyBodyTriangle extends CGFobject {
 	initBuffers() {
 		this.vertices = [
 			0, 0, 0, //0
-			0, -1, 0,	//1
-			0, -1, -1.25,	//2
+			0, -0.95, 0,	//1
+			0, -0.95, -1.25,	//2
 
 			0, 0, 0,	//0
-			0, -1, 0,	//1
-			0, -1, -1.25	//2
+			0, -0.95, 0,	//1
+			0, -0.95, -1.25	//2
 		];
 
 		//Counter-clockwise reference of vertices

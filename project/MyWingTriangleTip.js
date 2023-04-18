@@ -14,11 +14,11 @@ export class MyWingTriangleTip extends CGFobject {
 		this.vertices = [
 			0, 0, 0, //0
 			0, 0, 0.2,	//1
-			0.30, 0, 0.2,	//2
+			0.4, 0, 0.2,	//2
 
 			0, 0, 0,	//0
 			0, 0, 0.2,	//1
-			0.30, 0, 0.2	//2
+			0.4, 0, 0.2	//2
 		];
 
 		//Counter-clockwise reference of vertices

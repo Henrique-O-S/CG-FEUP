@@ -1,6 +1,7 @@
 import { CGFappearance, CGFobject } from "../lib/CGF.js";
 import { MyBodyTriangle } from "./MyBodyTriangle.js";
 import { MyBodyTriangleVertical } from "./MyBodyTriangleVertical.js";
+import { MyCone } from "./MyCone.js";
 import { MySphere } from "./MySphere.js";
 
 
@@ -9,13 +10,12 @@ import { MySphere } from "./MySphere.js";
  * MyBody
  * @constructor
  */
-export class MyBody extends CGFobject {
+export class MyHead extends CGFobject {
   constructor(scene) {
     super(scene);
     this.initMaterials();
-    this.chest = new MySphere(scene, 50, 20, 0.5, "half");
-    this.lateral = new MyBodyTriangle(scene);
-    this.vertical = new MyBodyTriangleVertical(scene);
+    this.head = new MySphere(scene, 50, 20, 0.35);
+    this.beak = new MyCone(scene, 5, 5);
   }
 
   enableNormalViz(){
