@@ -15,7 +15,8 @@ export class MyHead extends CGFobject {
     super(scene);
     this.initMaterials();
     this.head = new MySphere(scene, 50, 20, 0.35);
-    this.beak = new MyCone(scene, 5, 5);
+    this.beak = new MyCone(scene, 5, 4);
+    this.eye = new MySphere(scene, 50, 20, 0.09, "half");
   }
 
   enableNormalViz(){
@@ -33,50 +34,26 @@ export class MyHead extends CGFobject {
   
 
   display() {
+    this.head.display();
     this.scene.pushMatrix();
-    this.scene.rotate(Math.PI / 2, 0, 1, 0);
-    this.chest.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-
-    this.scene.translate(-0.2, 0.5, 0);
-    this.lateral.display();
-
-    //this.vertical.display();
-
-    this.scene.pushMatrix();
-    this.scene.popMatrix();
-
-    this.scene.translate(0.4, 0, 0);
-    this.lateral.display();
-    //this.vertical.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-    this.scene.translate(-0.2, 0.5, 0);
-    this.scene.rotate(52.7 * (Math.PI / 180) , 1, 0, 0);
-
-    this.vertical.display();
-
-    this.scene.rotate(Math.PI, 0, 0, 1);
-    this.scene.translate(-0.4, 1.57, 0);
-    this.vertical.display();
-
-    this.scene.popMatrix();
-    this.scene.pushMatrix();
-
-    this.scene.scale(1,1,1.25 / 1.57);
-    this.scene.translate(-0.2, -0.45, 0);
+    this.scene.translate(0,0, 0.328);
+    this.scene.scale(0.15, 0.15, 0.20);
     this.scene.rotate(Math.PI / 2, 1, 0, 0);
-  
-    this.vertical.display();
-
-    this.scene.rotate(Math.PI, 1, 0, 0);
-    this.scene.rotate(Math.PI, 0, 1, 0);
-
-    this.scene.translate(-0.4, 1.57, 0);
-    this.vertical.display();
-
+    this.beak.display();
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.rotate(-Math.PI / 4, 1, 0, 0);
+    this.scene.rotate(-Math.PI / 7, 0, 1, 0);
+    this.scene.translate(0,0, 0.328);
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    this.eye.display();
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
+    this.scene.rotate(-Math.PI / 4, 1, 0, 0);
+    this.scene.rotate(Math.PI / 7, 0, 1, 0);
+    this.scene.translate(0,0, 0.328);
+    this.scene.rotate(Math.PI / 2, 0, 1, 0);
+    this.eye.display();
+    this.scene.popMatrix();
   }
 }

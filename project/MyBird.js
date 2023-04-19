@@ -3,6 +3,7 @@ import { MySphere } from "./MySphere.js";
 import { MyWing } from "./MyWing.js";
 import { MyBody } from "./MyBody.js";
 import { MyWings } from "./MyWings.js";
+import { MyHead } from "./MyHead.js";
 
 
 
@@ -23,7 +24,7 @@ export class MyBird extends CGFobject {
     this.triangleBigBlue = new MyTriangleBig(scene, "blue");
     this.triangleBigOrange = new MyTriangleBig(scene, "orange"); */
     this.wings = new MyWings(scene);
-    this.head = new MySphere(scene, 50, 20, 0.35);
+    this.head = new MyHead(scene);
     this.body = new MyBody(scene);
 
     this.initMaterials();
