@@ -54,19 +54,11 @@ export class MyBird extends CGFobject {
 		this.material1.setDiffuse(1, 1, 1, 1);
 		this.material1.setSpecular(1, 1, 1, 1);
 
-    this.material2 = new CGFappearance(this.scene);
-		this.material2.setShininess(1);
-		this.material2.setEmission(1, 1, 1, 1);
-		this.material2.setAmbient(1, 1, 1, 1);
-		this.material2.setDiffuse(1, 1, 1, 1);
-		this.material2.setSpecular(1, 1, 1, 1);
-
   }
 
   initTextures(){
     this.feathersTexture = new CGFtexture(this.scene, 'images/feathers2.jpg');
     this.material1.setTexture(this.feathersTexture);
-    this.material2.setTexture(this.feathersTexture);
   }
   
 

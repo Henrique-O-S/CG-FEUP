@@ -6,7 +6,7 @@ import {CGFobject} from '../lib/CGF.js';
  * @param slices   - number of divisions around the Y axis
  * @param stacks   - number of divisions along the Y axis
  * @param radius   - radius of the sphere
- * @param inverted - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
+ * @param special  - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
  * @param offset   - vector to be added to the position of the center
 
 

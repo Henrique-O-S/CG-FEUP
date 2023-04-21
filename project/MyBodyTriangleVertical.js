@@ -60,6 +60,7 @@ export class MyBodyTriangleVertical extends CGFobject {
 
 		this.material1 = new CGFappearance(this.scene);
 			this.material1.setShininess(1);
+			this.material1.setEmission(1, 1, 1, 1);
 			this.material1.setAmbient(1, 1, 1, 1);
 			this.material1.setDiffuse(1, 1, 1, 1);
 			this.material1.setSpecular(1, 1, 1, 1);

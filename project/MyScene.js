@@ -4,6 +4,8 @@ import { MyPanorama } from "./MyPanorama.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
+import { MyNest } from "./MyNest.js";
+import { MyBirdEgg } from "./MyBirdEgg.js";
 
 /**
  * MyScene
@@ -30,23 +32,35 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
-    this.sphere = new MySphere(this, 50, 20, 200);
+    this.sphere = new MySphere(this, 50, 20, 200, false, [0,0,0]);
     this.bird = new MyBird(this, [0,0,0]);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
+    this.nestPosition = [];
+    this.nestPosition.x = 10;
+    this.nestPosition.y = -63.5;
+    this.nestPosition.z = 10;
+    this.nest = new MyNest(this, this.nestPosition);
+    this.egg = [];
+    this.egg[0] = new MyBirdEgg(this, 20, -66, -10);
+    this.egg[1] = new MyBirdEgg(this, -25, -65, -30);
+    this.egg[2] = new MyBirdEgg(this, -30, -65.5, 10);
+    this.egg[3] = new MyBirdEgg(this, 0, -67, -50);
 
-    this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain];
+    this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.egg];
 
     // Labels and ID's for object selection on MyInterface
-    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4};
+    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest': 5, 'Egg': 6};
 
     //Objects connected to MyInterface
     this.selectedObject = 0;
-    this.displayAxis = true;
+    this.displayAxis = false;
     this.displayPlane = false;
     this.displaySphere = false;
-    this.displayPanorama = false;
-    this.displayBird = false;
+    this.displayPanorama = true;
+    this.displayBird = true;
     this.displayTerrain = true;
+    this.displayNest = true;
+    this.displayEgg = true;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
@@ -149,6 +163,21 @@ export class MyScene extends CGFscene {
       this.rotate(-Math.PI/2.0,1,0,0);
       this.terrain.display();
     }
+    this.popMatrix();
+
+    this.pushMatrix();
+    if(this.displayNest){
+      this.nest.display();
+    }
+
+    this.pushMatrix();
+    if(this.displayEgg){
+      this.egg[0].display();
+      this.egg[1].display();
+      this.egg[2].display();
+      this.egg[3].display();
+    }
+
     this.popMatrix();
     // ---- END Primitive drawing section
   }
