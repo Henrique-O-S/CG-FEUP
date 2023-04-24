@@ -33,7 +33,11 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
     this.sphere = new MySphere(this, 50, 20, 200, false, [0,0,0]);
-    this.bird = new MyBird(this, [0,0,0]);
+    this.birdPosition = [];
+    this.birdPosition.x = 1;
+    this.birdPosition.y = 1;
+    this.birdPosition.z = 3;
+    this.bird = new MyBird(this, this.birdPosition);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
     this.nestPosition = [];
     this.nestPosition.x = 10;
