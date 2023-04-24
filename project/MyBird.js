@@ -76,8 +76,13 @@ export class MyBird extends CGFobject {
 
     this.scene.pushMatrix();
     this.scene.translate(this.position.x,this.position.y,this.position.z);
+    if(this.flying){
+      this.scene.rotate(Math.PI / 8, 1, 0, 0);
+    }
+  
     this.head.display();
     this.scene.translate(0, -0.85, 0);
+    
     this.body.display();
 
     this.scene.popMatrix();
@@ -104,9 +109,10 @@ export class MyBird extends CGFobject {
 
   }
 
-  update(elapsedTime){
+  update(elapsedTime, flying){
     this.updateHeight(elapsedTime);
     this.updateWings(elapsedTime);
+    this.flying = flying;
   }
 
 }

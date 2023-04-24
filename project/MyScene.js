@@ -62,6 +62,7 @@ export class MyScene extends CGFscene {
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
+    this.birdFlying = false;
     this.displayTerrain = true;
     this.displayNest = true;
     this.displayEgg = true;
@@ -191,6 +192,6 @@ export class MyScene extends CGFscene {
       this.lastTime = time;
     }
     const elapsedTime = time - this.lastTime;
-    this.bird.update(elapsedTime);
+    this.bird.update(elapsedTime, this.birdFlying);
   }
 }
