@@ -13,6 +13,7 @@ export class MyWings extends CGFobject {
     this.initMaterials();
     this.rightWing = new MyWing(scene, "right");
     this.leftWing = new MyWing(scene, "left");
+    this.angle = 0;
   }
 
   enableNormalViz(){
