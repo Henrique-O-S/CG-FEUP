@@ -16,6 +16,11 @@ export class MyBird extends CGFobject {
     super(scene);
     this.position = position;
     
+    this.angle = 0;
+    this.oscillation = [];
+    this.oscillation.maxHeight = 0.1;//regarding constant up and down animation
+    this.oscillation.duration = 1000; //ms
+
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
     this.triangleSmallRed = new MyTriangleSmall(scene, "red");
@@ -26,6 +31,8 @@ export class MyBird extends CGFobject {
     this.wings = new MyWings(scene);
     this.head = new MyHead(scene);
     this.body = new MyBody(scene);
+
+  
 
     this.initMaterials();
     this.initTextures();
@@ -80,4 +87,11 @@ export class MyBird extends CGFobject {
 
 
   }
+
+  updateHeight(elapsedTime){
+    const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
+
+    this.position.y = this.position.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+  }
+
 }
