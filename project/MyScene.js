@@ -191,6 +191,6 @@ export class MyScene extends CGFscene {
       this.lastTime = time;
     }
     const elapsedTime = time - this.lastTime;
-    this.bird.updateHeight(elapsedTime);
+    this.bird.update(elapsedTime);
   }
 }

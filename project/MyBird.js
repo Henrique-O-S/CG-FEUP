@@ -15,8 +15,9 @@ export class MyBird extends CGFobject {
   constructor(scene, position) {
     super(scene);
     this.position = position;
-    
+    this.speed = 0;
     this.angle = 0;
+    this.maxWingAngle = 45;
     this.oscillation = [];
     this.oscillation.maxHeight = 0.1;//regarding constant up and down animation
     this.oscillation.duration = 1000; //ms
@@ -84,14 +85,28 @@ export class MyBird extends CGFobject {
 
     this.scene.translate(0.2, 0, -0.5);
     this.wings.display();
-
-
+    
+    this.scene.popMatrix();
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
   }
 
   updateHeight(elapsedTime){
     const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
 
     this.position.y = this.position.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+  }
+
+  updateWings(elapsedTime){
+    const wingAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
+
+    this.wings.setAngle(Math.sin(wingAngle) * this.maxWingAngle * (Math.PI / 180));
+
+  }
+
+  update(elapsedTime){
+    this.updateHeight(elapsedTime);
+    this.updateWings(elapsedTime);
   }
 
 }
