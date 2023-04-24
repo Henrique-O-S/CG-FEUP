@@ -6,6 +6,9 @@ import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
+import { MyBillboard } from "./MyBillboard.js";
+import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
+import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 
 /**
  * MyScene
@@ -45,11 +48,14 @@ export class MyScene extends CGFscene {
     this.egg[1] = new MyBirdEgg(this, -25, -65, -30);
     this.egg[2] = new MyBirdEgg(this, -30, -65.5, 10);
     this.egg[3] = new MyBirdEgg(this, 0, -67, -50);
+    this.treeRow = new MyTreeRowPatch(this);
+    this.treeGroup = new MyTreeGroupPatch(this);
 
-    this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.egg];
+
+    this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.egg, this.treeRow, this.treeGroup];
 
     // Labels and ID's for object selection on MyInterface
-    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest': 5, 'Egg': 6};
+    this.objectIDs = { 'Plane': 0 , 'Sphere': 1, 'Panorama': 2, 'Bird': 3, 'Terrain': 4, 'Nest': 5, 'Egg': 6, 'TreeRow': 7, 'TreeGroup': 8};
 
     //Objects connected to MyInterface
     this.selectedObject = 0;
@@ -61,6 +67,8 @@ export class MyScene extends CGFscene {
     this.displayTerrain = true;
     this.displayNest = true;
     this.displayEgg = true;
+    this.displayTreeRow = true;
+    this.displayTreeGroup = true;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
@@ -169,6 +177,7 @@ export class MyScene extends CGFscene {
     if(this.displayNest){
       this.nest.display();
     }
+    this.popMatrix();
 
     this.pushMatrix();
     if(this.displayEgg){
@@ -177,7 +186,18 @@ export class MyScene extends CGFscene {
       this.egg[2].display();
       this.egg[3].display();
     }
+    this.popMatrix();
 
+    this.pushMatrix();
+    if(this.displayTreeRow){
+      this.treeRow.display();
+    }
+    this.popMatrix();
+
+    this.pushMatrix();
+    if(this.displayTreeGroup){
+      this.treeGroup.display();
+    }
     this.popMatrix();
     // ---- END Primitive drawing section
   }

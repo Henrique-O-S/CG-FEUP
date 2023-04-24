@@ -2,14 +2,14 @@ import {CGFobject, CGFshader, CGFtexture, CGFappearance} from '../lib/CGF.js';
 import { MyPlane } from "./MyPlane.js";
 
 /**
-* MySphere
+* MyTerrain
 * @constructor
  * @param scene         - Reference to MyScene object
  * @param nrDivs        - number of divisions in both directions of the surface
  * @param heightscale   - number of divisions along the Y axis
- * @param texturePath   - radius of the sphere
- * @param heightmapPath - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
- * @param altimetryPath - vector to be added to the position of the center
+ * @param texture   	- radius of the sphere
+ * @param heightmap 	- boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
+ * @param altimetry 	- vector to be added to the position of the center
 
 
 */

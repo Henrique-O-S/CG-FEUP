@@ -15,7 +15,7 @@ export class MyHead extends CGFobject {
     super(scene);
     this.initMaterials();
     this.head = new MySphere(scene, 50, 20, 0.35);
-    this.beak = new MyCone(scene, 5, 4);
+    this.beak = new MyCone(scene, 6, 4);
     this.eye = new MySphere(scene, 50, 20, 0.09, "half");
   }
 

@@ -1,5 +1,6 @@
 import {CGFobject, CGFshader, CGFtexture, CGFappearance} from '../lib/CGF.js';
 import {MyCone} from "./MyCone.js";
+import { MySphere } from './MySphere.js';
 
 /**
  * MyNest

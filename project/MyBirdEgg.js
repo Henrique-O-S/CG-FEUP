@@ -3,7 +3,10 @@ import {MySphere} from "./MySphere.js";
 /**
 * MyBirdEgg
 * @constructor
- * @param scene    - Reference to MyScene object
+ * @param scene - Reference to MyScene object
+ * @param x     - X component of the egg's position
+ * @param y     - Y component of the egg's position
+ * @param z     - Z component of the egg's position
 
 
 */
