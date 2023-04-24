@@ -15,7 +15,13 @@ export class MyBird extends CGFobject {
   constructor(scene, position) {
     super(scene);
     this.position = position;
-    
+    this.speed = 0;
+    this.angle = 0;
+    this.maxWingAngle = 45;
+    this.oscillation = [];
+    this.oscillation.maxHeight = 0.1;//regarding constant up and down animation
+    this.oscillation.duration = 1000; //ms
+
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
     this.triangleSmallRed = new MyTriangleSmall(scene, "red");
@@ -26,6 +32,8 @@ export class MyBird extends CGFobject {
     this.wings = new MyWings(scene);
     this.head = new MyHead(scene);
     this.body = new MyBody(scene);
+
+  
 
     this.initMaterials();
     this.initTextures();
@@ -67,17 +75,44 @@ export class MyBird extends CGFobject {
     this.material1.apply();
 
     this.scene.pushMatrix();
-    this.scene.translate(this.position[0],this.position[1],this.position[2]);
+    this.scene.translate(this.position.x,this.position.y,this.position.z);
+    if(this.flying){
+      this.scene.rotate(Math.PI / 8, 1, 0, 0);
+    }
+  
     this.head.display();
     this.scene.translate(0, -0.85, 0);
+    
     this.body.display();
 
     this.scene.popMatrix();
     this.scene.pushMatrix();
 
-    this.scene.translate(this.position[0] + 0.2,this.position[1],this.position[2] - 0.5);
+    this.scene.translate(0.2, 0, -0.5);
     this.wings.display();
+    
+    this.scene.popMatrix();
+    this.scene.popMatrix();
+    this.scene.pushMatrix();
+  }
 
+  updateHeight(elapsedTime){
+    const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
+
+    this.position.y = this.position.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+  }
+
+  updateWings(elapsedTime){
+    const wingAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
+
+    this.wings.setAngle(Math.sin(wingAngle) * this.maxWingAngle * (Math.PI / 180));
 
   }
+
+  update(elapsedTime, flying){
+    this.updateHeight(elapsedTime);
+    this.updateWings(elapsedTime);
+    this.flying = flying;
+  }
+
 }

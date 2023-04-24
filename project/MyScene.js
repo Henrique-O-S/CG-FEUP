@@ -20,7 +20,7 @@ export class MyScene extends CGFscene {
   }
   init(application) {
     super.init(application);
-    
+    this.setUpdatePeriod(30);
     this.initCameras();
     this.initLights();
 
@@ -36,7 +36,11 @@ export class MyScene extends CGFscene {
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this, 30);
     this.sphere = new MySphere(this, 50, 20, 200, false, [0,0,0]);
-    this.bird = new MyBird(this, [0,0,0]);
+    this.birdPosition = [];
+    this.birdPosition.x = 1;
+    this.birdPosition.y = 3;
+    this.birdPosition.z = 1;
+    this.bird = new MyBird(this, this.birdPosition);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
     this.nestPosition = [];
     this.nestPosition.x = 10;
@@ -64,6 +68,7 @@ export class MyScene extends CGFscene {
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
+    this.birdFlying = false;
     this.displayTerrain = true;
     this.displayNest = true;
     this.displayEgg = true;
@@ -200,5 +205,13 @@ export class MyScene extends CGFscene {
     }
     this.popMatrix();
     // ---- END Primitive drawing section
+  }
+
+  update(time) {
+    if(!this.lastTime){
+      this.lastTime = time;
+    }
+    const elapsedTime = time - this.lastTime;
+    this.bird.update(elapsedTime, this.birdFlying);
   }
 }
