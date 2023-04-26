@@ -68,7 +68,6 @@ export class MyScene extends CGFscene {
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
-    this.birdFlying = false;
     this.displayTerrain = true;
     this.displayNest = true;
     this.displayEgg = true;
@@ -208,10 +207,56 @@ export class MyScene extends CGFscene {
   }
 
   update(time) {
+    this.checkKeys();
     if(!this.lastTime){
       this.lastTime = time;
     }
     const elapsedTime = time - this.lastTime;
-    this.bird.update(elapsedTime, this.birdFlying);
+    this.bird.update(elapsedTime);
+  }
+
+  checkKeys() {
+    var text = "Keys pressed: ";
+    var keysPressed = false;
+    var v = 0;
+    var a = 0;
+    var reset = false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+        text += " W ";
+        keysPressed = true;
+        v += 0.01;
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+        text += " S ";
+        keysPressed = true;
+        v -= 0.01;
+    }
+    if (this.gui.isKeyPressed("KeyA")) {
+      text += " S ";
+      keysPressed = true;
+      a += 2 * (Math.PI / 180);
+  }
+  if (this.gui.isKeyPressed("KeyD")) {
+    text += " S ";
+    keysPressed = true;
+    a -= 2 * (Math.PI / 180);
+  }
+  if (this.gui.isKeyPressed("KeyR")) {
+    text += " S ";
+    keysPressed = true;
+    reset = true;
+  }
+    if (keysPressed){
+      if(reset){
+        this.bird.reset();
+      }
+      else{
+        this.bird.accelerate(v);
+        this.bird.turn(a);
+      }
+      
+    }
+        
   }
 }

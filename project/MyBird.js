@@ -15,6 +15,10 @@ export class MyBird extends CGFobject {
   constructor(scene, position) {
     super(scene);
     this.position = position;
+    this.initialPosition = [];
+    this.initialPosition.x = position.x;
+    this.initialPosition.y = position.y;
+    this.initialPosition.z = position.z;
     this.speed = 0;
     this.angle = 0;
     this.maxWingAngle = 45;
@@ -73,9 +77,10 @@ export class MyBird extends CGFobject {
   display() {
 
     this.material1.apply();
-
     this.scene.pushMatrix();
     this.scene.translate(this.position.x,this.position.y,this.position.z);
+    this.scene.pushMatrix();
+    this.scene.rotate(this.angle, 0, 1, 0);
     if(this.flying){
       this.scene.rotate(Math.PI / 8, 1, 0, 0);
       this.scene.pushMatrix();
@@ -103,7 +108,7 @@ export class MyBird extends CGFobject {
     
     this.scene.popMatrix();
     this.scene.popMatrix();
-    this.scene.pushMatrix();
+    this.scene.popMatrix();
   }
 
   updateHeight(elapsedTime){
@@ -119,12 +124,35 @@ export class MyBird extends CGFobject {
 
   }
 
-  update(elapsedTime, flying){
-    this.flying = flying;
+  updatePosition(){
+    this.position.x = this.position.x + Math.sin(this.angle) * this.speed;
+    this.position.z = this.position.z + Math.cos(this.angle) * this.speed;
+  }
+
+  update(elapsedTime){
+    this.flying = this.speed != 0;
     if(this.flying){
       this.updateHeight(elapsedTime);
       this.updateWings(elapsedTime);
     }
+    this.updatePosition();
+  }
+
+  turn(a){
+    this.angle += a;
+  }
+  
+  accelerate(v){
+    this.speed += v;
+  }
+
+  reset(){
+    this.position.x = this.initialPosition.x;
+    this.position.y = this.initialPosition.y;
+    this.position.z = this.initialPosition.z;
+    this.angle = 0;
+    this.speed = 0;
+    this.updateWings(0);
   }
 
 }
