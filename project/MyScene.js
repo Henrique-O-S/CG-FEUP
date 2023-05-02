@@ -76,6 +76,7 @@ export class MyScene extends CGFscene {
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
+    this.speedFactor = 1;
 
     this.enableTextures(true);
 
@@ -207,12 +208,13 @@ export class MyScene extends CGFscene {
   }
 
   update(time) {
-    this.checkKeys();
     if(!this.lastTime){
       this.lastTime = time;
     }
     const elapsedTime = time - this.lastTime;
     this.bird.update(elapsedTime);
+    this.checkKeys();
+
   }
 
   checkKeys() {
