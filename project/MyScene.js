@@ -65,15 +65,15 @@ export class MyScene extends CGFscene {
     //Objects connected to MyInterface
     this.selectedObject = 0;
     this.displayAxis = false;
-    this.displayPlane = false;
+    this.displayPlane = true;
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
-    this.displayTerrain = false;
-    this.displayNest = false;
-    this.displayEgg = false;
-    this.displayTreeRow = false;
-    this.displayTreeGroup = false;
+    this.displayTerrain = true;
+    this.displayNest = true;
+    this.displayEgg = true;
+    this.displayTreeRow = true;
+    this.displayTreeGroup = true;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
@@ -100,8 +100,8 @@ export class MyScene extends CGFscene {
       1.23,
       0.1,
       1000,
-      vec3.fromValues(0, 0, 0),
-      vec3.fromValues(0, 0, 1)
+      vec3.fromValues(-5, 4, 10),
+      vec3.fromValues(0, 0, 0)
     );
 
     //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
@@ -250,17 +250,17 @@ export class MyScene extends CGFscene {
     text += " R ";
     reset = true;
   }
-  /* if (this.gui.isKeyPressed("KeyP")) {
+  if (this.gui.isKeyPressed("KeyP")) {
     text += " P ";
     getEgg = true;
-} */
+}
   if(reset){
     this.bird.reset();
   }
-  /* else if(getEgg){
+  else if(getEgg){
     if(this.bird.gettingEgg == 0)
       this.bird.gettingEgg = -1;
-  } */
+  }
   else if(keysPressed){
     this.bird.accelerate(v);
     this.bird.turn(a);

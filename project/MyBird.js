@@ -25,8 +25,8 @@ export class MyBird extends CGFobject {
     this.oscillation = [];
     this.oscillation.maxHeight = 0.3;//regarding constant up and down animation
     this.oscillation.duration = 1000; //ms
-    //this.eggHeight = -59;
-    //this.gettingEgg = 0;
+    this.eggHeight = -59;
+    this.gettingEgg = 0;
 
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
@@ -114,7 +114,7 @@ export class MyBird extends CGFobject {
   }
 
   updateHeight(elapsedTime){
-    /* if(this.gettingEgg != 0){
+    if(this.gettingEgg != 0){
       if(this.position.y <= this.eggHeight){
         this.gettingEgg = 1;
       }
@@ -128,10 +128,7 @@ export class MyBird extends CGFobject {
       const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
       console.log(this.oscillation.maxHeight * Math.sin(oscillationAngle));
       this.position.y = this.initialPosition.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
-    }*/
-    const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
-    console.log(this.oscillation.maxHeight * Math.sin(oscillationAngle));
-    this.position.y = this.initialPosition.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+    }
   }
 
   updateWings(elapsedTime){
@@ -153,18 +150,18 @@ export class MyBird extends CGFobject {
     this.updateHeight(elapsedTime);
   }
 
-  /* atNormalHeight(){
+  atNormalHeight(){
     return (this.position.y < this.initialPosition.y + this.oscillation.maxHeight && this.position.y > this.initialPosition.y - this.oscillation.maxHeight);
-  } */
+  }
 
   turn(a){
-    //if(this.atNormalHeight())
-    this.angle += a * this.scene.speedFactor;
+    if(this.atNormalHeight())
+      this.angle += a * this.scene.speedFactor;
   }
   
   accelerate(v){
-    //if(this.atNormalHeight())
-    this.speed += v;
+    if(this.atNormalHeight())
+      this.speed += v;
     if(this.speed < 0)
       this.speed = 0;
   }
@@ -173,7 +170,7 @@ export class MyBird extends CGFobject {
     this.position.x = this.initialPosition.x;
     this.position.y = this.initialPosition.y;
     this.position.z = this.initialPosition.z;
-    //this.gettingEgg = 0;
+    this.gettingEgg = 0;
     this.angle = 0;
     this.speed = 0;
     this.updateWings(0);
