@@ -20,7 +20,8 @@ export class MyScene extends CGFscene {
   }
   init(application) {
     super.init(application);
-    this.setUpdatePeriod(30);
+    this.millisUpdate = 30;
+    this.setUpdatePeriod(this.millisUpdate);
     this.initCameras();
     this.initLights();
 
@@ -223,6 +224,7 @@ export class MyScene extends CGFscene {
     var v = 0;
     var a = 0;
     var reset = false;
+    var getEgg = false;
     // Check for key codes e.g. in https://keycode.info/
     if (this.gui.isKeyPressed("KeyW")) {
         text += " W ";
@@ -235,30 +237,34 @@ export class MyScene extends CGFscene {
         v -= 0.01;
     }
     if (this.gui.isKeyPressed("KeyA")) {
-      text += " S ";
+      text += " A ";
       keysPressed = true;
       a += 2 * (Math.PI / 180);
   }
   if (this.gui.isKeyPressed("KeyD")) {
-    text += " S ";
+    text += " D ";
     keysPressed = true;
     a -= 2 * (Math.PI / 180);
   }
   if (this.gui.isKeyPressed("KeyR")) {
-    text += " S ";
-    keysPressed = true;
+    text += " R ";
     reset = true;
   }
-    if (keysPressed){
-      if(reset){
-        this.bird.reset();
-      }
-      else{
-        this.bird.accelerate(v);
-        this.bird.turn(a);
-      }
-      
-    }
+  if (this.gui.isKeyPressed("KeyP")) {
+    text += " P ";
+    getEgg = true;
+}
+  if(reset){
+    this.bird.reset();
+  }
+  else if(getEgg){
+    if(this.bird.gettingEgg == 0)
+      this.bird.gettingEgg = -1;
+  }
+  else if(keysPressed){
+    this.bird.accelerate(v);
+    this.bird.turn(a);
+  }
         
   }
 }
