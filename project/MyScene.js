@@ -69,11 +69,11 @@ export class MyScene extends CGFscene {
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
-    this.displayTerrain = true;
-    this.displayNest = true;
-    this.displayEgg = true;
-    this.displayTreeRow = true;
-    this.displayTreeGroup = true;
+    this.displayTerrain = false;
+    this.displayNest = false;
+    this.displayEgg = false;
+    this.displayTreeRow = false;
+    this.displayTreeGroup = false;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
@@ -96,15 +96,15 @@ export class MyScene extends CGFscene {
     this.lights[0].update();
   }
   initCameras() {
-    this.camera = new CGFcamera(
+    /* this.camera = new CGFcamera(
       1.23,
       0.1,
       1000,
       vec3.fromValues(0, 0, 0),
       vec3.fromValues(0, 0, 1)
-    );
+    ); */
 
-    //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
   }
   setDefaultAppearance() {
