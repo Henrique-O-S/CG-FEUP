@@ -170,7 +170,7 @@ export class MyBird extends CGFobject {
     this.position.x = this.initialPosition.x;
     this.position.y = this.initialPosition.y;
     this.position.z = this.initialPosition.z;
-    this.gettingEgg = 0;
+    wdthis.gettingEgg = 0;
     this.angle = 0;
     this.speed = 0;
     this.updateWings(0);
