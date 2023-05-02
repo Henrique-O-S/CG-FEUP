@@ -96,15 +96,15 @@ export class MyScene extends CGFscene {
     this.lights[0].update();
   }
   initCameras() {
-    /* this.camera = new CGFcamera(
+    this.camera = new CGFcamera(
       1.23,
       0.1,
       1000,
       vec3.fromValues(0, 0, 0),
       vec3.fromValues(0, 0, 1)
-    ); */
+    );
 
-    this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
+    //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
 
   }
   setDefaultAppearance() {
@@ -250,17 +250,17 @@ export class MyScene extends CGFscene {
     text += " R ";
     reset = true;
   }
-  if (this.gui.isKeyPressed("KeyP")) {
+  /* if (this.gui.isKeyPressed("KeyP")) {
     text += " P ";
     getEgg = true;
-}
+} */
   if(reset){
     this.bird.reset();
   }
-  else if(getEgg){
+  /* else if(getEgg){
     if(this.bird.gettingEgg == 0)
       this.bird.gettingEgg = -1;
-  }
+  } */
   else if(keysPressed){
     this.bird.accelerate(v);
     this.bird.turn(a);
