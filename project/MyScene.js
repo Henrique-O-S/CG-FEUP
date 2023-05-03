@@ -39,7 +39,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, 50, 20, 200, false, [0,0,0]);
     this.birdPosition = [];
     this.birdPosition.x = 1;
-    this.birdPosition.y = 3;
+    this.birdPosition.y = -40;
     this.birdPosition.z = 1;
     this.bird = new MyBird(this, this.birdPosition);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
@@ -100,8 +100,8 @@ export class MyScene extends CGFscene {
       1.23,
       0.1,
       1000,
-      vec3.fromValues(-5, 4, 10),
-      vec3.fromValues(0, 0, 0)
+      vec3.fromValues(-5, -39, 10),
+      vec3.fromValues(0, -39, 0)
     );
 
     //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
@@ -187,10 +187,9 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     if(this.displayEgg){
-      this.egg[0].display();
-      this.egg[1].display();
-      this.egg[2].display();
-      this.egg[3].display();
+      for(const eggObject of this.egg){
+        eggObject.display();
+      }
     }
     this.popMatrix();
 
