@@ -9,7 +9,7 @@ import { MyBillboard } from './MyBillboard.js';
 
 export class MyTreeRowPatch extends CGFobject {
 
-	constructor(scene) {
+	constructor(scene, x, y, z) {
 		super(scene);
 
         this.tree = new MyBillboard(this.scene)
@@ -18,8 +18,10 @@ export class MyTreeRowPatch extends CGFobject {
 
         this.treesTexture = [];
         this.treesPosition = [];
+        this.treesSize = [];
         let texture;
         let offset;
+        let scale;
 
         for(var i = 0; i < 6; i++){
 
@@ -34,10 +36,13 @@ export class MyTreeRowPatch extends CGFobject {
 
             offset = Math.random() * (5 - 0) + 0;
 
+            scale = Math.random() * (1.2 - 0.8) + 0.8;
+            this.treesSize[i] = scale;
+
             let position = [];
-            position.x = 30 + 5 + offset;
-            position.y = -62.5;
-            position.z = 0 - i*10;
+            position.x = x + offset;
+            position.y = y;
+            position.z = z - i*10;
             this.treesPosition[i] = position;
         }
 	}
@@ -83,7 +88,7 @@ export class MyTreeRowPatch extends CGFobject {
             this.scene.pushMatrix();
             
             this.treesTexture[i].apply();
-            this.tree.display(this.treesPosition[i].x, this.treesPosition[i].y, this.treesPosition[i].z);
+            this.tree.display(this.treesPosition[i].x, this.treesPosition[i].y, this.treesPosition[i].z, this.treesSize[i]);
 
             this.scene.popMatrix();
         }

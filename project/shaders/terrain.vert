@@ -15,7 +15,7 @@ void main() {
 	vec3 offset=vec3(0.0,0.0,0.0);
 	vTextureCoord = aTextureCoord;
 
-	float gradient =  texture2D(uSampler2,vec2(0.0,0.001) +  vTextureCoord).b * 0.025;
+	float gradient =  texture2D(uSampler2,vec2(0.0,0.001) +  vTextureCoord).b * 0.018;
 
 	offset=aVertexNormal * normScale * 0.1 * gradient;
 

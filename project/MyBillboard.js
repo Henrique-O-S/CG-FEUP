@@ -16,7 +16,7 @@ export class MyBillboard extends CGFobject {
 	}
 
 
-	display(x, y, z) {
+	display(x, y, z, scale) {
 
         this.scene.pushMatrix();
 
@@ -34,9 +34,12 @@ export class MyBillboard extends CGFobject {
         else
             angle = Math.acos(vec2.dot(toCamera, normalXZ));
 
+        console.log(scale);
+
         this.scene.translate(x, y, z);
         this.scene.rotate(angle,0,1,0);
         this.scene.scale(10, 10, 10);
+        this.scene.scale(scale, scale, scale);
 	    this.billboard.display();
 
         this.scene.popMatrix();

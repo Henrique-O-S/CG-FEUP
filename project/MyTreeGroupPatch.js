@@ -9,7 +9,7 @@ import { MyBillboard } from './MyBillboard.js';
 
 export class MyTreeGroupPatch extends CGFobject {
 
-	constructor(scene) {
+	constructor(scene, x, y, z) {
 		super(scene);
 
         this.tree = new MyBillboard(this.scene)
@@ -18,8 +18,10 @@ export class MyTreeGroupPatch extends CGFobject {
 
         this.treesTexture = [];
         this.treesPosition = [];
+        this.treesSize = [];
         let texture;
         let offset;
+        let scale;
 
         for(var i = 0; i < 3; i++){
             for(var j = 0; j < 3; j++){
@@ -35,10 +37,13 @@ export class MyTreeGroupPatch extends CGFobject {
 
                 offset = Math.random() * (5 - 0) + 0;
 
+                scale = Math.random() * (1.2 - 0.8) + 0.8;
+                this.treesSize[i*3 + j] = scale;
+
                 let position = [];
-                position.x = -5 + i*10 + offset;
-                position.y = -59;
-                position.z = 50 + j*10;
+                position.x = x + i*10 + offset;
+                position.y = y;
+                position.z = z + j*10;
                 this.treesPosition[i*3 + j] = position;
             }
         }
@@ -86,7 +91,7 @@ export class MyTreeGroupPatch extends CGFobject {
                 this.scene.pushMatrix();
                 
                 this.treesTexture[i*3 + j].apply();
-                this.tree.display(this.treesPosition[i*3 + j].x, this.treesPosition[i*3 + j].y, this.treesPosition[i*3 + j].z);
+                this.tree.display(this.treesPosition[i*3 + j].x, this.treesPosition[i*3 + j].y, this.treesPosition[i*3 + j].z, this.treesSize[i*3 + j]);
 
                 this.scene.popMatrix();
             }

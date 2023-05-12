@@ -41,19 +41,19 @@ export class MyScene extends CGFscene {
     this.birdPosition.y = 3;
     this.birdPosition.z = 1;
     this.bird = new MyBird(this, this.birdPosition);
-    this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/newheightmap.jpg", "images/altimetry.png");
+    this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/planeheightmap.jpg", "images/altimetry.png");
     this.nestPosition = [];
-    this.nestPosition.x = 10;
-    this.nestPosition.y = -63.5;
-    this.nestPosition.z = 10;
+    this.nestPosition.x = 20;
+    this.nestPosition.y = -61;
+    this.nestPosition.z = 47;
     this.nest = new MyNest(this, this.nestPosition);
     this.egg = [];
-    this.egg[0] = new MyBirdEgg(this, 20, -66, -10);
-    this.egg[1] = new MyBirdEgg(this, -25, -65, -30);
-    this.egg[2] = new MyBirdEgg(this, -30, -65.5, 10);
-    this.egg[3] = new MyBirdEgg(this, 0, -67, -50);
-    this.treeRow = new MyTreeRowPatch(this);
-    this.treeGroup = new MyTreeGroupPatch(this);
+    this.egg[0] = new MyBirdEgg(this, 25, -62.2, 80);
+    this.egg[1] = new MyBirdEgg(this, 30, -62.5, 60);
+    this.egg[2] = new MyBirdEgg(this, 10, -62.3, 35);
+    this.egg[3] = new MyBirdEgg(this, 0, -62.6, 50);
+    this.treeRow = new MyTreeRowPatch(this, 35, -59, 80);
+    this.treeGroup = new MyTreeGroupPatch(this, -5, -59, 60);
 
 
     this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.egg, this.treeRow, this.treeGroup];
@@ -98,9 +98,9 @@ export class MyScene extends CGFscene {
     this.camera = new CGFcamera(
       1.23,
       0.1,
-      1000,
-      vec3.fromValues(0, 0, 0),
-      vec3.fromValues(0, 0, 1)
+      20000,
+      vec3.fromValues(0, -40, 0),
+      vec3.fromValues(0, -40, 1)
     );
 
     //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
