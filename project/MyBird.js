@@ -23,8 +23,11 @@ export class MyBird extends CGFobject {
     this.angle = 0;
     this.maxWingAngle = 45;
     this.oscillation = [];
-    this.oscillation.maxHeight = 0.1;//regarding constant up and down animation
+    this.oscillation.maxHeight = 0.3;//regarding constant up and down animation
     this.oscillation.duration = 1000; //ms
+    this.eggHeight = -66;
+    this.gettingEgg = 0;
+    this.egg = 0;
 
     /* this.diamond = new MyDiamond(scene);
     this.parallelogram = new MyParallelogram(scene);
@@ -75,13 +78,13 @@ export class MyBird extends CGFobject {
   
 
   display() {
-
     this.material1.apply();
     this.scene.pushMatrix();
     this.scene.translate(this.position.x,this.position.y,this.position.z);
     this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
     this.scene.pushMatrix();
     this.scene.rotate(this.angle, 0, 1, 0);
+  
     if(this.moving){
       this.scene.rotate(Math.PI / 8, 1, 0, 0);
       this.scene.pushMatrix();
@@ -101,6 +104,7 @@ export class MyBird extends CGFobject {
     
     this.body.display();
 
+
     this.scene.popMatrix();
     this.scene.pushMatrix();
 
@@ -110,12 +114,27 @@ export class MyBird extends CGFobject {
     this.scene.popMatrix();
     this.scene.popMatrix();
     this.scene.popMatrix();
+  
+    if(this.egg){
+      this.egg.display();
+    }
   }
 
   updateHeight(elapsedTime){
-    const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
-
-    this.position.y = this.position.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+    if(this.gettingEgg != 0){
+      if(this.position.y <= this.eggHeight){
+        this.gettingEgg = 1;
+      }
+      this.position.y = this.position.y + (this.initialPosition.y - this.eggHeight) * this.gettingEgg / (1000/this.scene.millisUpdate);
+      if(this.position.y >= this.initialPosition.y){
+        this.gettingEgg = 0;
+        this.position.y = this.initialPosition.y;
+      }
+    }
+    else{
+      const oscillationAngle = elapsedTime / this.oscillation.duration * 2 * Math.PI;
+      this.position.y = this.initialPosition.y + this.oscillation.maxHeight * Math.sin(oscillationAngle);
+    }
   }
 
   updateWings(elapsedTime){
@@ -132,18 +151,29 @@ export class MyBird extends CGFobject {
 
   update(elapsedTime){
     this.moving = this.speed != 0;
-    this.updateHeight(elapsedTime);
     this.updateWings(elapsedTime);
-    
     this.updatePosition();
+    this.updateHeight(elapsedTime);
+    this.checkNearEgg();
+    if(this.egg){
+      this.egg.x = this.position.x;
+      this.egg.y = this.position.y - 2;
+      this.egg.z = this.position.z;
+    }
+  }
+
+  atNormalHeight(){
+    return (this.position.y < this.initialPosition.y + this.oscillation.maxHeight && this.position.y > this.initialPosition.y - this.oscillation.maxHeight);
   }
 
   turn(a){
-    this.angle += a * this.scene.speedFactor;
+    if(this.atNormalHeight())
+      this.angle += a * this.scene.speedFactor;
   }
   
   accelerate(v){
-    this.speed += v;
+    if(this.atNormalHeight())
+      this.speed += v;
     if(this.speed < 0)
       this.speed = 0;
   }
@@ -152,9 +182,26 @@ export class MyBird extends CGFobject {
     this.position.x = this.initialPosition.x;
     this.position.y = this.initialPosition.y;
     this.position.z = this.initialPosition.z;
+    this.gettingEgg = 0;
     this.angle = 0;
     this.speed = 0;
     this.updateWings(0);
+    this.egg = 0;
   }
+
+  checkNearEgg(){
+    for(const eggObject of this.scene.egg){
+      if(this.checkEggCollision(eggObject)){
+        console.log("y");
+        this.egg = eggObject;
+        this.scene.egg = this.scene.egg.filter(el => !(el.x == eggObject.x && el.y == eggObject.y && el.z == eggObject.z));
+      }
+    }
+  }
+
+  checkEggCollision(egg){
+    return Math.abs(this.position.y - egg.y) < 2 && Math.abs(this.position.x - egg.x) < 10 && Math.abs(this.position.z - egg.z) < 10;
+  }
+
 
 }

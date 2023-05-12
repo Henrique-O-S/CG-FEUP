@@ -9,3 +9,5 @@
 - In exercise 2 there were no problems
 
 ![Screenshot 1](screenshots/project-t06g02-1.png)
+
+![Screenshot 2](screenshots/project-t06g02-2.png)

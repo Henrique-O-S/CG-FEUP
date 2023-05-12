@@ -20,7 +20,8 @@ export class MyScene extends CGFscene {
   }
   init(application) {
     super.init(application);
-    this.setUpdatePeriod(30);
+    this.millisUpdate = 30;
+    this.setUpdatePeriod(this.millisUpdate);
     this.initCameras();
     this.initLights();
 
@@ -38,7 +39,7 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this, 50, 20, 200, false, [0,0,0]);
     this.birdPosition = [];
     this.birdPosition.x = 1;
-    this.birdPosition.y = 3;
+    this.birdPosition.y = -40;
     this.birdPosition.z = 1;
     this.bird = new MyBird(this, this.birdPosition);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/planeheightmap.jpg", "images/altimetry.png");
@@ -64,7 +65,7 @@ export class MyScene extends CGFscene {
     //Objects connected to MyInterface
     this.selectedObject = 0;
     this.displayAxis = false;
-    this.displayPlane = false;
+    this.displayPlane = true;
     this.displaySphere = false;
     this.displayPanorama = true;
     this.displayBird = true;
@@ -186,10 +187,9 @@ export class MyScene extends CGFscene {
 
     this.pushMatrix();
     if(this.displayEgg){
-      this.egg[0].display();
-      this.egg[1].display();
-      this.egg[2].display();
-      this.egg[3].display();
+      for(const eggObject of this.egg){
+        eggObject.display();
+      }
     }
     this.popMatrix();
 
@@ -223,6 +223,7 @@ export class MyScene extends CGFscene {
     var v = 0;
     var a = 0;
     var reset = false;
+    var getEgg = false;
     // Check for key codes e.g. in https://keycode.info/
     if (this.gui.isKeyPressed("KeyW")) {
         text += " W ";
@@ -235,30 +236,34 @@ export class MyScene extends CGFscene {
         v -= 0.01;
     }
     if (this.gui.isKeyPressed("KeyA")) {
-      text += " S ";
+      text += " A ";
       keysPressed = true;
       a += 2 * (Math.PI / 180);
   }
   if (this.gui.isKeyPressed("KeyD")) {
-    text += " S ";
+    text += " D ";
     keysPressed = true;
     a -= 2 * (Math.PI / 180);
   }
   if (this.gui.isKeyPressed("KeyR")) {
-    text += " S ";
-    keysPressed = true;
+    text += " R ";
     reset = true;
   }
-    if (keysPressed){
-      if(reset){
-        this.bird.reset();
-      }
-      else{
-        this.bird.accelerate(v);
-        this.bird.turn(a);
-      }
-      
-    }
+  if (this.gui.isKeyPressed("KeyP")) {
+    text += " P ";
+    getEgg = true;
+}
+  if(reset){
+    this.bird.reset();
+  }
+  else if(getEgg){
+    if(this.bird.gettingEgg == 0)
+      this.bird.gettingEgg = -1;
+  }
+  else if(keysPressed){
+    this.bird.accelerate(v);
+    this.bird.turn(a);
+  }
         
   }
 }
