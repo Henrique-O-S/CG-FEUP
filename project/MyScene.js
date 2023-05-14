@@ -40,7 +40,7 @@ export class MyScene extends CGFscene {
     this.birdPosition = [];
     this.birdPosition.x = 1;
     this.birdPosition.y = -40;
-    this.birdPosition.z = 1;
+    this.birdPosition.z = 10;
     this.bird = new MyBird(this, this.birdPosition);
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/planeheightmap.jpg", "images/altimetry.png");
     this.nestPosition = [];
@@ -55,6 +55,7 @@ export class MyScene extends CGFscene {
     this.egg[3] = new MyBirdEgg(this, 0, -62.6, 50);
     this.treeRow = new MyTreeRowPatch(this, 35, -59, 80);
     this.treeGroup = new MyTreeGroupPatch(this, -5, -59, 60);
+    this.eggHeight = -61;
 
 
     this.objects = [this.plane, this.sphere, this.panorama, this.bird, this.terrain, this.nest, this.egg, this.treeRow, this.treeGroup];
@@ -79,6 +80,8 @@ export class MyScene extends CGFscene {
     this.scaleFactor = 1;
     this.speedFactor = 1;
 
+    this.fallingEgg = 0;
+
     this.enableTextures(true);
 
     this.texture = new CGFtexture(this, "images/terrain.jpg");
@@ -100,8 +103,8 @@ export class MyScene extends CGFscene {
       1.23,
       0.1,
       20000,
-      vec3.fromValues(0, -40, 0),
-      vec3.fromValues(0, -40, 1)
+      vec3.fromValues(-5, -38, 50),
+      vec3.fromValues(0, -40, 40)
     );
 
     //this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(10, 10, 10), vec3.fromValues(0, 0, 0));
@@ -214,7 +217,9 @@ export class MyScene extends CGFscene {
     const elapsedTime = time - this.lastTime;
     this.bird.update(elapsedTime);
     this.checkKeys();
-
+    if(this.fallingEgg){
+      this.fallingEgg.updatePos(time);
+    }
   }
 
   checkKeys() {
@@ -224,6 +229,7 @@ export class MyScene extends CGFscene {
     var a = 0;
     var reset = false;
     var getEgg = false;
+    var dropEgg = false;
     // Check for key codes e.g. in https://keycode.info/
     if (this.gui.isKeyPressed("KeyW")) {
         text += " W ";
@@ -253,6 +259,10 @@ export class MyScene extends CGFscene {
     text += " P ";
     getEgg = true;
 }
+if (this.gui.isKeyPressed("KeyO")) {
+  text += " O ";
+  dropEgg = true;
+}
   if(reset){
     this.bird.reset();
   }
@@ -260,10 +270,16 @@ export class MyScene extends CGFscene {
     if(this.bird.gettingEgg == 0)
       this.bird.gettingEgg = -1;
   }
-  else if(keysPressed){
+  else{
+    if(keysPressed){
     this.bird.accelerate(v);
     this.bird.turn(a);
-  }
-        
+    }
+    if(dropEgg){
+      this.bird.dropEgg()
+
+    }
+  } 
+    
   }
 }

@@ -34,7 +34,7 @@ export class MyBillboard extends CGFobject {
         else
             angle = Math.acos(vec2.dot(toCamera, normalXZ));
 
-        console.log(scale);
+        //console.log(scale);
 
         this.scene.translate(x, y, z);
         this.scene.rotate(angle,0,1,0);

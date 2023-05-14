@@ -25,7 +25,6 @@ export class MyBird extends CGFobject {
     this.oscillation = [];
     this.oscillation.maxHeight = 0.3;//regarding constant up and down animation
     this.oscillation.duration = 1000; //ms
-    this.eggHeight = -66;
     this.gettingEgg = 0;
     this.egg = 0;
 
@@ -122,10 +121,10 @@ export class MyBird extends CGFobject {
 
   updateHeight(elapsedTime){
     if(this.gettingEgg != 0){
-      if(this.position.y <= this.eggHeight){
+      if(this.position.y <= this.scene.eggHeight){
         this.gettingEgg = 1;
       }
-      this.position.y = this.position.y + (this.initialPosition.y - this.eggHeight) * this.gettingEgg / (1000/this.scene.millisUpdate);
+      this.position.y = this.position.y + (this.initialPosition.y - this.scene.eggHeight) * this.gettingEgg / (1000/this.scene.millisUpdate);
       if(this.position.y >= this.initialPosition.y){
         this.gettingEgg = 0;
         this.position.y = this.initialPosition.y;
@@ -154,7 +153,9 @@ export class MyBird extends CGFobject {
     this.updateWings(elapsedTime);
     this.updatePosition();
     this.updateHeight(elapsedTime);
-    this.checkNearEgg();
+    if(this.gettingEgg != 0){
+      this.checkNearEgg();
+    }
     if(this.egg){
       this.egg.x = this.position.x;
       this.egg.y = this.position.y - 2;
@@ -192,7 +193,6 @@ export class MyBird extends CGFobject {
   checkNearEgg(){
     for(const eggObject of this.scene.egg){
       if(this.checkEggCollision(eggObject)){
-        console.log("y");
         this.egg = eggObject;
         this.scene.egg = this.scene.egg.filter(el => !(el.x == eggObject.x && el.y == eggObject.y && el.z == eggObject.z));
       }
@@ -201,6 +201,17 @@ export class MyBird extends CGFobject {
 
   checkEggCollision(egg){
     return Math.abs(this.position.y - egg.y) < 2 && Math.abs(this.position.x - egg.x) < 10 && Math.abs(this.position.z - egg.z) < 10;
+  }
+
+  dropEgg(){
+    if(this.egg && this.atNormalHeight()){
+      this.scene.egg.push(this.egg);
+      this.egg.vx = Math.sin(this.angle) * this.speed;
+      this.egg.vy = 0;
+      this.egg.vz = Math.cos(this.angle) * this.speed;
+      this.scene.fallingEgg = this.egg;
+      this.egg = 0;
+    }
   }
 
 

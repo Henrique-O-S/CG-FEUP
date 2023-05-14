@@ -17,6 +17,8 @@ export class MyBirdEgg extends CGFobject {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.a = -(10/1000) / 2;
+        this.time = 0;
         this.egg = new MySphere(scene, 50, 20, 0.3, false, [0,0,0]);
         this.initMaterials();
     }
@@ -38,5 +40,29 @@ export class MyBirdEgg extends CGFobject {
 
         this.scene.popMatrix();
 	}
+
+    updatePos(time){
+        if(this.time == 0){
+            this.time = time;
+        }
+        else{
+            const elapsedTime = time - this.time;
+            this.x = this.x + this.vx;
+            this.z = this.z + this.vz;
+            this.y = this.y + this.vy + 0.5 * this.a * elapsedTime;
+        }
+        if(this.checkNestColision()){
+
+        }
+        if(this.y <= this.scene.eggHeight){
+            this.scene.fallingEgg = 0;
+        }
+    }
+
+    checkNestColision(){
+        return Math.abs(this.y - this.scene.nestPosition.y) < 2 && Math.abs(this.x - this.scene.nestPosition.x) < 10 && Math.abs(this.z - this.scene.nestPosition.z) < 10;
+    }
+
+
     
 };
