@@ -11,3 +11,5 @@
 ![Screenshot 1](screenshots/project-t06g02-1.png)
 
 ![Screenshot 2](screenshots/project-t06g02-2.png)
+
+![Screenshot 3](screenshots/project-t06g02-3.png)

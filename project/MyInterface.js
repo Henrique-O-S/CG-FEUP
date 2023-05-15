@@ -39,6 +39,8 @@ export class MyInterface extends CGFinterface {
 
         this.gui.add(this.scene, 'displayTreeRow').name('Display TreeRow');
 
+        this.gui.add(this.scene, 'displayTreeGroup').name('Display TreeGroup');
+
         //Slider element in GUI
         this.gui.add(this.scene, 'scaleFactor', 0.5, 3).name('Scale Factor');
 
