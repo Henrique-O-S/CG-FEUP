@@ -71,8 +71,8 @@ export class MyScene extends CGFscene {
     this.displayPanorama = true;
     this.displayBird = true;
     this.displayTerrain = true;
-    this.displayNest = false;
-    this.displayEgg = false;
+    this.displayNest = true;
+    this.displayEgg = true;
     this.displayTreeRow = true;
     this.displayTreeGroup = true;
     this.displayNormals = false;

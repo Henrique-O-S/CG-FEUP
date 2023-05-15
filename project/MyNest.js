@@ -1,4 +1,4 @@
-import {CGFobject, CGFshader, CGFtexture, CGFappearance} from '../lib/CGF.js';
+import {CGFobject, CGFtexture, CGFappearance} from '../lib/CGF.js';
 import {MyCone} from "./MyCone.js";
 import { MySphere } from './MySphere.js';
 
@@ -13,7 +13,6 @@ export class MyNest extends CGFobject {
     constructor(scene, position) {
         super(scene);
         this.position = position;
-        this.extraBranches = [];
 
         this.initBuffers();
         this.Materials();
