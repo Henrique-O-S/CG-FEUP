@@ -73,8 +73,8 @@ export class MyScene extends CGFscene {
     this.displayTerrain = true;
     this.displayNest = false;
     this.displayEgg = false;
-    this.displayTreeRow = false;
-    this.displayTreeGroup = false;
+    this.displayTreeRow = true;
+    this.displayTreeGroup = true;
     this.displayNormals = false;
     this.objectComplexity = 0.5;
     this.scaleFactor = 1;
