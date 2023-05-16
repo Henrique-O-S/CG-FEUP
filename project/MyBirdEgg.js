@@ -52,9 +52,18 @@ export class MyBirdEgg extends CGFobject {
             this.y = this.y + this.vy + 0.5 * this.a * elapsedTime;
         }
         if(this.checkNestColision()){
-
+            this.vx = 0;
+            this.vy = 0;
+            this.vz = 0;
+            this.egg.time = 0;
+            this.scene.fallingEgg = 0;
+            this.scene.nest.addEgg(this);
         }
         if(this.y <= this.scene.eggHeight){
+            this.vx = 0;
+            this.vy = 0;
+            this.vz = 0;
+            this.egg.time = 0;
             this.scene.fallingEgg = 0;
         }
     }

@@ -13,10 +13,14 @@ export class MyNest extends CGFobject {
     constructor(scene, position) {
         super(scene);
         this.position = position;
-
         this.initBuffers();
         this.Materials();
         this.Textures();
+        this.eggPositions = [[this.position.x - 1, this.position.y, this.position.z],
+         [this.position.x, this.position.y, this.position.z + 1],
+         [this.position.x, this.position.y, this.position.z - 1],
+         [this.position.x + 1, this.position.y, this.position.z]];
+        this.eggs = [];
     }
 
     initBuffers() {
@@ -59,6 +63,17 @@ export class MyNest extends CGFobject {
 
         this.scene.popMatrix();
 
+    }
+
+    addEgg(egg){
+        console.log(this.eggs.length);
+        console.log(this.eggPositions[this.eggs.length]);
+        console.log(this.eggPositions[this.eggs.length][0]);
+
+        egg.x = this.eggPositions[this.eggs.length][0];
+        egg.y = this.eggPositions[this.eggs.length][1];
+        egg.z = this.eggPositions[this.eggs.length][2];
+        this.eggs.push(egg);
     }
 
 };

@@ -217,7 +217,7 @@ export class MyScene extends CGFscene {
     const elapsedTime = time - this.lastTime;
     this.bird.update(elapsedTime);
     this.checkKeys();
-    if(this.fallingEgg){
+    if(this.fallingEgg != 0){
       this.fallingEgg.updatePos(time);
     }
   }
@@ -263,11 +263,12 @@ if (this.gui.isKeyPressed("KeyO")) {
   text += " O ";
   dropEgg = true;
 }
+
   if(reset){
     this.bird.reset();
   }
   else if(getEgg){
-    if(this.bird.gettingEgg == 0)
+    if(this.bird.gettingEgg == 0 && this.bird.egg == 0)
       this.bird.gettingEgg = -1;
   }
   else{

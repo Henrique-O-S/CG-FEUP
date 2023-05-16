@@ -192,7 +192,7 @@ export class MyBird extends CGFobject {
 
   checkNearEgg(){
     if(this.egg == 0){
-      for(const eggObject of this.scene.egg){
+      for(let eggObject of this.scene.egg){
       if(this.checkEggCollision(eggObject)){
         this.egg = eggObject;
         this.scene.egg = this.scene.egg.filter(el => !(el.x == eggObject.x && el.y == eggObject.y && el.z == eggObject.z));
@@ -209,11 +209,12 @@ export class MyBird extends CGFobject {
 
   dropEgg(){
     if(this.egg && this.atNormalHeight()){
-      this.scene.egg.push(this.egg);
       this.egg.vx = Math.sin(this.angle) * this.speed;
       this.egg.vy = 0;
       this.egg.vz = Math.cos(this.angle) * this.speed;
+      this.egg.time = 0;
       this.scene.fallingEgg = this.egg;
+      this.scene.egg.push(this.egg);
       this.egg = 0;
     }
   }
