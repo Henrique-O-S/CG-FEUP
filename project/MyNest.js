@@ -51,7 +51,7 @@ export class MyNest extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI / 180 * 180, 1, 0, 0);
-        this.scene.scale(2,2,2);
+        this.scene.scale(2,1,2);
         this.cone.display();
         this.scene.rotate(Math.PI / 180 * 30, 0, 1, 0);
         this.cone.display();

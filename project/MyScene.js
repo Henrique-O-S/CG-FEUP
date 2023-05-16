@@ -45,7 +45,7 @@ export class MyScene extends CGFscene {
     this.terrain = new MyTerrain(this, 30, 100, "images/terrain.jpg", "images/planeheightmap.jpg", "images/altimetry.png");
     this.nestPosition = [];
     this.nestPosition.x = 20;
-    this.nestPosition.y = -61;
+    this.nestPosition.y = -62;
     this.nestPosition.z = 47;
     this.nest = new MyNest(this, this.nestPosition);
     this.egg = [];
