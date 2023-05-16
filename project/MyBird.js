@@ -191,12 +191,16 @@ export class MyBird extends CGFobject {
   }
 
   checkNearEgg(){
-    for(const eggObject of this.scene.egg){
+    if(this.egg == 0){
+      for(const eggObject of this.scene.egg){
       if(this.checkEggCollision(eggObject)){
         this.egg = eggObject;
         this.scene.egg = this.scene.egg.filter(el => !(el.x == eggObject.x && el.y == eggObject.y && el.z == eggObject.z));
+        break;
       }
     }
+    }
+    
   }
 
   checkEggCollision(egg){
