@@ -28,13 +28,10 @@ export class MyBird extends CGFobject {
     this.gettingEgg = 0;
     this.egg = 0;
 
-    /* this.diamond = new MyDiamond(scene);
-    this.parallelogram = new MyParallelogram(scene);
-    this.triangleSmallRed = new MyTriangleSmall(scene, "red");
-    this.triangleSmallPurple = new MyTriangleSmall(scene, "purple");
-    this.triangleSmallPink = new MyTriangleSmall(scene, "pink");
-    this.triangleBigBlue = new MyTriangleBig(scene, "blue");
-    this.triangleBigOrange = new MyTriangleBig(scene, "orange"); */
+    this.eggColision = [];
+      this.eggColision.x = 6;
+      this.eggColision.y = 2;
+      this.eggColision.z = 6;
     this.wings = new MyWings(scene);
     this.head = new MyHead(scene);
     this.body = new MyBody(scene);
@@ -43,20 +40,6 @@ export class MyBird extends CGFobject {
 
     this.initMaterials();
     this.initTextures();
-  }
-
-  enableNormalViz(){
-    /* this.parallelogram.enableNormalViz();
-    this.diamond.enableNormalViz();
-    this.triangleSmall.enableNormalViz();
-    this.triangleBig.enableNormalViz(); */
-  }
-
-  disableNormalViz(){
-   /*  this.parallelogram.disableNormalViz();
-    this.diamond.disableNormalViz();
-    this.triangleSmall.disableNormalViz();
-    this.triangleBig.disableNormalViz(); */
   }
 
   initMaterials(){
@@ -204,7 +187,7 @@ export class MyBird extends CGFobject {
   }
 
   checkEggCollision(egg){
-    return Math.abs(this.position.y - egg.y) < 2 && Math.abs(this.position.x - egg.x) < 10 && Math.abs(this.position.z - egg.z) < 10;
+    return Math.abs(this.position.y - egg.y) < this.eggColision.y && Math.abs(this.position.x - egg.x) < this.eggColision.x && Math.abs(this.position.z - egg.z) < this.eggColision.z;
   }
 
   dropEgg(){

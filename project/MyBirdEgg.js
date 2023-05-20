@@ -17,6 +17,10 @@ export class MyBirdEgg extends CGFobject {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.nestColision = [];
+        this.nestColision.x = 6;
+        this.nestColision.y = 2;
+        this.nestColision.z = 6;
         this.a = -(10/1000) / 2;
         this.time = 0;
         this.egg = new MySphere(scene, 50, 20, 0.3, false, [0,0,0]);
@@ -69,7 +73,7 @@ export class MyBirdEgg extends CGFobject {
     }
 
     checkNestColision(){
-        return Math.abs(this.y - this.scene.nestPosition.y) < 2 && Math.abs(this.x - this.scene.nestPosition.x) < 10 && Math.abs(this.z - this.scene.nestPosition.z) < 10;
+        return Math.abs(this.y - this.scene.nestPosition.y) < this.nestColision.y && Math.abs(this.x - this.scene.nestPosition.x) < this.nestColision.x && Math.abs(this.z - this.scene.nestPosition.z) < this.nestColision.z;
     }
 
 
