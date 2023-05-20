@@ -141,7 +141,7 @@ export class MyBird extends CGFobject {
     }
     if(this.egg){
       this.egg.x = this.position.x;
-      this.egg.y = this.position.y - 2;
+      this.egg.y = this.position.y - 1.7;
       this.egg.z = this.position.z;
     }
   }
