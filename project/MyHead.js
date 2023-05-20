@@ -1,6 +1,4 @@
 import { CGFappearance, CGFobject } from "../lib/CGF.js";
-import { MyBodyTriangle } from "./MyBodyTriangle.js";
-import { MyBodyTriangleVertical } from "./MyBodyTriangleVertical.js";
 import { MyCone } from "./MyCone.js";
 import { MySphere } from "./MySphere.js";
 

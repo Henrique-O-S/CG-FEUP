@@ -1,4 +1,4 @@
-import {CGFobject, CGFshader, CGFtexture, CGFappearance} from '../lib/CGF.js';
+import {CGFobject, CGFtexture, CGFappearance} from '../lib/CGF.js';
 import { MyBillboard } from './MyBillboard.js';
 
 /**

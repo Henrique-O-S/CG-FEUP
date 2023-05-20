@@ -6,7 +6,6 @@ import { MySphere } from "./MySphere.js";
 import { MyTerrain } from "./MyTerrain.js";
 import { MyNest } from "./MyNest.js";
 import { MyBirdEgg } from "./MyBirdEgg.js";
-import { MyBillboard } from "./MyBillboard.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 

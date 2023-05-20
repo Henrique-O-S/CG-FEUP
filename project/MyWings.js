@@ -1,4 +1,4 @@
-import { CGFappearance, CGFobject } from "../lib/CGF.js";
+import { CGFobject } from "../lib/CGF.js";
 import { MyWing } from "./MyWing.js";
 
 

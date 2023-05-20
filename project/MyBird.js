@@ -1,6 +1,4 @@
 import { CGFappearance, CGFobject, CGFtexture } from "../lib/CGF.js";
-import { MySphere } from "./MySphere.js";
-import { MyWing } from "./MyWing.js";
 import { MyBody } from "./MyBody.js";
 import { MyWings } from "./MyWings.js";
 import { MyHead } from "./MyHead.js";
