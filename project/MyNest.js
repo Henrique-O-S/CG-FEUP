@@ -56,10 +56,6 @@ export class MyNest extends CGFobject {
     }
 
     addEgg(egg){
-        console.log(this.eggs.length);
-        console.log(this.eggPositions[this.eggs.length]);
-        console.log(this.eggPositions[this.eggs.length][0]);
-
         egg.x = this.eggPositions[this.eggs.length][0];
         egg.y = this.eggPositions[this.eggs.length][1];
         egg.z = this.eggPositions[this.eggs.length][2];
