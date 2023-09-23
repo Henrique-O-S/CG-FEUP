@@ -16,6 +16,9 @@ void main() {
 	if (uUseTexture)
 	{
 		vec4 textureColor = texture(uSampler, vTextureCoord);
+		if(textureColor.a < 1.0) {
+			discard;
+		}
 		fragColor = textureColor * vFinalColor;
 	}
 	else

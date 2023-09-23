@@ -6,7 +6,7 @@ import {CGFobject} from '../lib/CGF.js';
  * @param slices   - number of divisions around the Y axis
  * @param stacks   - number of divisions along the Y axis
  * @param radius   - radius of the sphere
- * @param inverted - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
+ * @param special  - boolean indicating wether it is an inverter sphere (for the panorama) or a normal one
  * @param offset   - vector to be added to the position of the center
 
 
@@ -51,6 +51,7 @@ export class MySphere extends CGFobject {
             var x = Math.cos(theta) * sinPhi;
             var y = cosPhi;
             var z = Math.sin(-theta) * sinPhi;
+            
             if(this.special == "half"){
               x = Math.min(x, 0);
             }
@@ -72,7 +73,6 @@ export class MySphere extends CGFobject {
                 this.indices.push(current + 1, next, current);
                 this.indices.push(current + 1, next + 1, next);
               }
-
               else{
                 this.indices.push(current + 1, current, next);
                 this.indices.push(current + 1, next, next + 1);

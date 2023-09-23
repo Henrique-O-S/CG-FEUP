@@ -17,21 +17,38 @@ export class MyCone extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-
+        this.texCoords = [];
+    
         var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
+        var alphaAng = 2 * Math.PI / this.slices;
+        var texCoordS = 0;
+        var texCoordT = 1;
+    
+        var texCoordStepS = 1 / this.slices;
 
-        for(var i = 0; i < this.slices; i++){
-
-            this.vertices.push(Math.cos(ang), 0, -Math.sin(ang));
-            this.indices.push(i, (i+1) % this.slices, this.slices);
-            this.normals.push(Math.cos(ang), Math.cos(Math.PI/4.0), -Math.sin(ang));
-            ang+=alphaAng;
+    
+        for (var i = 0; i < this.slices; i++) {
+            var x = Math.cos(ang);
+            var z = -Math.sin(ang);
+    
+            this.vertices.push(x, 0, z);
+            this.normals.push(x, -Math.cos(Math.PI / 4.0), z);
+    
+            this.texCoords.push(texCoordS, texCoordT);
+            texCoordS += texCoordStepS;
+    
+            ang += alphaAng;
         }
-        this.vertices.push(0,1,0);
-        this.normals.push(0,1,0);
-
-
+    
+        this.vertices.push(0, 1, 0);
+        this.normals.push(0, -1, 0);
+        this.texCoords.push(0.5, 0.5); // Center point of the top circle
+    
+        for (var i = 0; i < this.slices; i++) {
+            this.indices.push(i, (i + 1) % this.slices, this.slices);
+            this.indices.push(i, this.slices, (i + 1) % this.slices);
+        }
+    
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
